@@ -81,6 +81,17 @@
 
     @media (max-width:1000px) { .plans-grid { grid-template-columns: 1fr 1fr; } .platform-section { padding: 40px; } }
     @media (max-width:700px) { .plans-grid { grid-template-columns: 1fr; } }
+
+    @media (max-width: 900px) {
+      .plans-grid { grid-template-columns: 1fr; }
+      .platform-section { padding: 36px 24px; }
+      .platform-header { gap: 12px; }
+      .product-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .platform-section { padding: 28px 16px; }
+      .product-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    }
   </style>
 </head>
 <body>
@@ -101,7 +112,25 @@
   <div class="nav-actions">
     <button class="btn btn-ghost"><i data-lucide="user" style="width:15px;height:15px;"></i> Entrar</button>
     <button class="btn btn-primary"><i data-lucide="shopping-cart" style="width:15px;height:15px;"></i> Carrinho</button>
+  
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<div class="nav-mobile" id="navMobile">
+  <a href="index.html">Início</a>
+  <a href="assinaturas.html" class="nav-active">Assinaturas</a>
+  <a href="jogos.html">Jogos</a>
+  <a href="gift-cards.html">Gift Cards</a>
+  <a href="meus-pedidos.html">Meus Pedidos</a>
+  <a href="contato.html">Contato</a>
+<div class="nav-mobile-divider"></div>
+  <div class="nav-mobile-actions">
+    <button class="btn btn-ghost">Entrar</button>
+    <button class="btn btn-primary">🛒 Carrinho</button>
   </div>
+</div>
 </nav>
 
 <div class="page-banner">
@@ -385,6 +414,27 @@
       opt.classList.add('sel');
     });
   });
+</script>
+
+<script>
+(function() {
+  var btn = document.getElementById('navHamburger');
+  var menu = document.getElementById('navMobile');
+  if (!btn || !menu) return;
+  btn.addEventListener('click', function() {
+    btn.classList.toggle('open');
+    menu.classList.toggle('open');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+  });
+  // Close on link click
+  menu.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      btn.classList.remove('open');
+      menu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+})();
 </script>
 </body>
 </html>

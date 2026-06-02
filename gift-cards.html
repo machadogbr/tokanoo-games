@@ -54,6 +54,19 @@
 
     @media (max-width:1100px) { .gc-grid { grid-template-columns: repeat(2,1fr); } .steps-grid { grid-template-columns: repeat(2,1fr); } .how-section { padding: 48px 40px; } }
     @media (max-width:700px) { .gc-grid { grid-template-columns: 1fr; } .steps-grid { grid-template-columns: 1fr; } }
+
+    @media (max-width: 900px) {
+      .gc-grid { grid-template-columns: 1fr 1fr; }
+      .steps-grid { grid-template-columns: 1fr 1fr; }
+      .how-section { padding: 36px 24px; }
+    }
+    @media (max-width: 600px) {
+      .gc-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .gc-body { padding: 14px; }
+      .gc-name { font-size: 15px; }
+      .steps-grid { grid-template-columns: 1fr; gap: 14px; }
+      .how-section { padding: 28px 16px; }
+    }
   </style>
 </head>
 <body>
@@ -71,7 +84,25 @@
   <div class="nav-actions">
     <button class="btn btn-ghost"><i data-lucide="user" style="width:15px;height:15px;"></i> Entrar</button>
     <button class="btn btn-primary"><i data-lucide="shopping-cart" style="width:15px;height:15px;"></i> Carrinho</button>
+  
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<div class="nav-mobile" id="navMobile">
+  <a href="index.html">Início</a>
+  <a href="assinaturas.html">Assinaturas</a>
+  <a href="jogos.html">Jogos</a>
+  <a href="gift-cards.html" class="nav-active">Gift Cards</a>
+  <a href="meus-pedidos.html">Meus Pedidos</a>
+  <a href="contato.html">Contato</a>
+<div class="nav-mobile-divider"></div>
+  <div class="nav-mobile-actions">
+    <button class="btn btn-ghost">Entrar</button>
+    <button class="btn btn-primary">🛒 Carrinho</button>
   </div>
+</div>
 </nav>
 
 <div class="page-banner">
@@ -339,6 +370,27 @@
   document.querySelectorAll('.pill').forEach(p => {
     p.addEventListener('click', () => { document.querySelectorAll('.pill').forEach(x => x.className='pill pill-inactive'); p.className='pill pill-active'; });
   });
+</script>
+
+<script>
+(function() {
+  var btn = document.getElementById('navHamburger');
+  var menu = document.getElementById('navMobile');
+  if (!btn || !menu) return;
+  btn.addEventListener('click', function() {
+    btn.classList.toggle('open');
+    menu.classList.toggle('open');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+  });
+  // Close on link click
+  menu.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      btn.classList.remove('open');
+      menu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+})();
 </script>
 </body>
 </html>

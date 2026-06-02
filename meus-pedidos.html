@@ -71,6 +71,24 @@
     .act-btn.primary:hover { background: #009a4c; }
 
     @media (max-width:1100px) { .orders-layout { grid-template-columns: 1fr; padding: 32px 40px; } .sidebar { position: static; } .order-card-inner { flex-wrap: wrap; } .summary-cards { grid-template-columns: 1fr 1fr; } }
+
+    @media (max-width: 900px) {
+      .orders-layout { grid-template-columns: 1fr; padding: 24px 24px; }
+      .sidebar { position: static; }
+      .sidebar-nav { flex-direction: row; flex-wrap: wrap; gap: 4px; padding: 8px; }
+      .sidebar-item { padding: 8px 12px; font-size: 13px; }
+      .summary-cards { grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+      .order-card-inner { flex-wrap: wrap; padding: 14px; gap: 12px; }
+      .order-info { min-width: 0; }
+      .order-actions { width: 100%; }
+    }
+    @media (max-width: 600px) {
+      .orders-layout { padding: 16px 16px; }
+      .summary-cards { grid-template-columns: 1fr 1fr; }
+      .sum-value { font-size: 22px; }
+      .orders-toolbar { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .search-input { max-width: 100%; width: 100%; }
+    }
   </style>
 </head>
 <body>
@@ -88,7 +106,25 @@
   <div class="nav-actions">
     <button class="btn btn-ghost"><i data-lucide="user" style="width:15px;height:15px;"></i> Entrar</button>
     <button class="btn btn-primary"><i data-lucide="shopping-cart" style="width:15px;height:15px;"></i> Carrinho</button>
+  
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<div class="nav-mobile" id="navMobile">
+  <a href="index.html">Início</a>
+  <a href="assinaturas.html">Assinaturas</a>
+  <a href="jogos.html">Jogos</a>
+  <a href="gift-cards.html">Gift Cards</a>
+  <a href="meus-pedidos.html" class="nav-active">Meus Pedidos</a>
+  <a href="contato.html">Contato</a>
+<div class="nav-mobile-divider"></div>
+  <div class="nav-mobile-actions">
+    <button class="btn btn-ghost">Entrar</button>
+    <button class="btn btn-primary">🛒 Carrinho</button>
   </div>
+</div>
 </nav>
 
 <div class="page-banner">
@@ -280,6 +316,27 @@
   document.querySelectorAll('.sidebar-item:not(.danger)').forEach(item => {
     item.addEventListener('click', () => { document.querySelectorAll('.sidebar-item').forEach(x => x.classList.remove('active')); item.classList.add('active'); });
   });
+</script>
+
+<script>
+(function() {
+  var btn = document.getElementById('navHamburger');
+  var menu = document.getElementById('navMobile');
+  if (!btn || !menu) return;
+  btn.addEventListener('click', function() {
+    btn.classList.toggle('open');
+    menu.classList.toggle('open');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+  });
+  // Close on link click
+  menu.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      btn.classList.remove('open');
+      menu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+})();
 </script>
 </body>
 </html>
