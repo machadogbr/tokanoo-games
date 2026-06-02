@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Assinaturas — ATM Games</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    .platform-section { padding: 56px 80px; }
+    .platform-section + .platform-section { border-top: 1px solid var(--border); }
+    .platform-header {
+      display: flex; align-items: center; gap: 16px; margin-bottom: 32px;
+    }
+    .platform-logo {
+      width: 52px; height: 52px; border-radius: var(--r-md);
+      object-fit: cover; box-shadow: var(--shadow-sm);
+    }
+    .platform-info h2 { font-size: 24px; font-weight: 800; color: var(--ink); }
+    .platform-info p { font-size: 14px; color: var(--muted); margin-top: 2px; }
+
+    .plans-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .plan-card {
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: var(--r-xl); overflow: hidden;
+      box-shadow: var(--shadow-sm); transition: all .25s;
+      display: flex; flex-direction: column; position: relative;
+    }
+    .plan-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+    .plan-card.featured { border-color: var(--green); }
+    .plan-banner { height: 140px; position: relative; overflow: hidden; }
+    .plan-banner img { width: 100%; height: 100%; object-fit: cover; }
+    .plan-banner-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.6));
+    }
+    .plan-banner-tag {
+      position: absolute; top: 12px; right: 12px;
+    }
+    .plan-featured-ribbon {
+      position: absolute; top: 0; left: 0; right: 0;
+      background: var(--green); color: #fff;
+      font-size: 10px; font-weight: 800; letter-spacing: 2px;
+      padding: 7px; text-align: center;
+    }
+    .plan-body { padding: 24px; display: flex; flex-direction: column; gap: 16px; flex: 1; }
+    .plan-name { font-size: 20px; font-weight: 800; color: var(--ink); }
+    .plan-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .plan-features { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .plan-features li {
+      font-size: 13px; color: var(--ink-2);
+      display: flex; align-items: center; gap: 9px;
+    }
+    .plan-features li .check { color: var(--green); flex-shrink: 0; }
+    .plan-divider { height: 1px; background: var(--border); }
+    .plan-options { display: flex; flex-direction: column; gap: 8px; }
+    .plan-option {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 11px 14px; border-radius: var(--r-sm);
+      border: 1.5px solid var(--border); cursor: pointer; transition: all .18s;
+      background: var(--surface-2);
+    }
+    .plan-option:hover, .plan-option.sel {
+      border-color: var(--green); background: var(--green-light);
+    }
+    .plan-option-label { font-size: 13px; font-weight: 600; color: var(--ink-2); display:flex;align-items:center;gap:6px; }
+    .plan-option-price { font-size: 16px; font-weight: 900; color: var(--green); }
+    .plan-cta {
+      width: 100%; padding: 13px; background: var(--green); color: #fff;
+      border: none; border-radius: var(--r-sm); font-size: 14px; font-weight: 700;
+      cursor: pointer; transition: all .2s; font-family: 'Inter',sans-serif;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .plan-cta:hover { background: #009a4c; }
+    .plan-cta.outline {
+      background: transparent; color: var(--green); border: 1.5px solid var(--green);
+    }
+    .plan-cta.outline:hover { background: var(--green-light); }
+
+    @media (max-width:1000px) { .plans-grid { grid-template-columns: 1fr 1fr; } .platform-section { padding: 40px; } }
+    @media (max-width:700px) { .plans-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-mark">ATM</div>
+    <span class="nav-logo-text">ATM GAMES</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Início</a></li>
+    <li><a href="assinaturas.html" class="nav-active">Assinaturas</a></li>
+    <li><a href="jogos.html">Jogos</a></li>
+    <li><a href="gift-cards.html">Gift Cards</a></li>
+    <li><a href="meus-pedidos.html">Meus Pedidos</a></li>
+    <li><a href="contato.html">Contato</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="btn btn-ghost"><i data-lucide="user" style="width:15px;height:15px;"></i> Entrar</button>
+    <button class="btn btn-primary"><i data-lucide="shopping-cart" style="width:15px;height:15px;"></i> Carrinho</button>
+  </div>
+</nav>
+
+<div class="page-banner">
+  <p class="page-banner-eyebrow"><i data-lucide="gamepad-2" style="width:13px;height:13px;"></i> ASSINATURAS DIGITAIS</p>
+  <h1 class="page-banner-title">Escolha sua assinatura</h1>
+  <p class="page-banner-sub">Ativação instantânea por e-mail. Escolha o plano ideal e comece a jogar hoje mesmo.</p>
+</div>
+
+<!-- ── XBOX ── -->
+<section class="platform-section">
+  <div class="platform-header">
+    <img class="platform-logo" src="" alt="Xbox" style="background:#107c10;padding:10px;border-radius:10px;" />
+    <div class="platform-info">
+      <h2>Xbox Game Pass</h2>
+      <p>Acesse centenas de jogos com uma única assinatura mensal</p>
+    </div>
+  </div>
+
+  <div class="plans-grid">
+    <div class="plan-card">
+      <div class="plan-banner">
+        <img src="" alt="Game Pass PC" />
+        <div class="plan-banner-overlay"></div>
+        <span class="plan-banner-tag"><span class="badge badge-gray">GAME PASS PC</span></span>
+      </div>
+      <div class="plan-body">
+        <p class="plan-name">Game Pass PC</p>
+        <p class="plan-desc">Jogos exclusivos para PC, incluindo títulos da EA e lançamentos no Day One.</p>
+        <ul class="plan-features">
+          <li><i data-lucide="check" class="check" style="width:14px;height:14px;"></i> 100+ jogos para PC</li>
+          <li><i data-lucide="check" class="check" style="width:14px;height:14px;"></i> Lançamentos Day One</li>
+          <li><i data-lucide="check" class="check" style="width:14px;height:14px;"></i> EA Play incluído</li>
+          <li><i data-lucide="check" class="check" style="width:14px;height:14px;"></i> Descontos exclusivos</li>
+        </ul>
+        <div class="plan-divider"></div>
+        <div class="plan-options">
+          <div class="plan-option sel">
+            <span class="plan-option-label"><i data-lucide="calendar" style="width:13px;height:13px;"></i> 1 Mês</span>
+            <span class="plan-option-price">R$ 24,90</span>
+          </div>
+          <div class="plan-option">
+            <span class="plan-option-label"><i data-lucide="calendar" style="width:13px;height:13px;"></i> 3 Meses</span>
+            <span class="plan-option-price">R$ 64,90</span>
+          </div>
+        </div>
+        <button class="plan-cta outline"><i data-lucide="shopping-cart" style="width:15px;height:15px;"></i> Adicionar ao Carrinho</button>
+      </div>
+    </div>
+
+    <div class="plan-card featured">
+      <div class="plan-featured-ribbon">⭐ MAIS POPULAR</div>
+      <div class="plan-banner" style="margin-top:33px;">
+        <img src="" alt="Game Pass Ultimate" />
+        <div class="plan-banner-overlay"></div>
+        <span class="plan-banner-tag"><span class="badge badge-yellow">RECOMENDADO</span></span>
+      </div>
+      <div class="plan-body">
+        <p class="plan-name">Game Pass Ultimate</p>
+        <p class="plan-desc">O melhor plano Xbox: jogos para PC e Console + Xbox Live Gold + EA Play + xCloud.</p>
+        <ul class="plan-features">
+          <li><i data-lucide="check" class="check" style="width:14px;height:14px;"></i> 100+ jogos PC e Console</li>
+          <li><i data-lucide="check" class="check" style="width:14px;height:14px;"></i> Xbox Live Gold incluído</li>
+          <li><i data-lucide="check" class="check" style="width:14px;height:14px;"></i> EA Play incluído</li>
+          <li><i data-lucide="check" class="check" style="width:14px;height:14px;"></i> Jogos na nuvem (xCloud)</li>
+          <li><i data-lucide="check" class="check" style="width:14px;height:14px;"></i> Lançamentos Day One</li>
+        </ul>
+        <div class="plan-divider"></div>
+        <div class="plan-options">
+          <div class="plan-option sel">
+            <span class="plan-option-label"><i data-lucide="calendar" style="width:13px;height:13px;"></i> 1 Mês</span>
+            <span class="plan-option-price">R$ 44,90</span>
+          </div>
+          <div class="plan-option">
+            <span class="plan-option-label"><i data-lucide="calendar" style="width:13px;height:13px;"></i> 3 Meses</span>
+            <span class="plan-option-price">R$ 119,90</span>
+          </div>
+          <div class="plan-option">
+            <span class="plan-option-label"><i data-lucide="calendar" style="width:13px;height:13px;"></i> 6 Meses</span>
+            <span class="plan-option-price">R$ 219,90</span>
+          </div>
+        </div>
+        <button class="plan-cta"><i data-lucide="shopping-cart" style="width:15px;height:15px;"></i> Comprar Agora</button>
+      </div>
+    </div>
+
+    <div class="plan-card">
+      <div class="plan-banner">
+        <img src="" alt="Game Pass Core" />
+        <div class="plan-banner-overlay"></div>
+        <span class="plan-banner-tag"><span class="badge badge-blue">GAME PASS CORE</span></span>
+      </div>
+      <div class="plan-body">
+        <p class="plan-name">Game Pass Core</p>
+        <p class="plan-desc">Multiplayer online e catálogo de jogos selecionados para Xbox Console.</p>
+        <ul class="plan-features">
+          <li><i data-lucide="check" class="check" style="width:14px;height:14px;"></i> Multiplayer online</li>
+          <li><i data-lucide="check" class="check" style="width:14px;height:14px;"></i> +25 jogos inclusos</li>
+          <li><i data-lucide="check" class="check" style="width:14px;height:14px;"></i> Descontos exclusivos</li>
+        </ul>
+        <div class="plan-divider"></div>
+        <div class="plan-options">
+          <div class="plan-option sel">
+            <span class="plan-option-label"><i data-lucide="calendar" style="width:13px;height:13px;"></i> 1 Mês</span>
+            <span class="plan-option-price">R$ 19,90</span>
+          </div>
+          <div class="plan-option">
+            <span class="plan-option-label"><i data-lucide="calendar" style="width:13px;height:13px;"></i> 3 Meses</span>
+            <span class="plan-option-price">R$ 49,90</span>
+          </div>
+          <div class="plan-option">
+            <span class="plan-option-label"><i data-lucide="calendar" style="width:13px;height:13px;"></i> 12 Meses</span>
+            <span class="plan-option-price">R$ 149,90</span>
+          </div>
+        </div>
+        <button class="plan-cta outline"><i data-lucide="shopping-cart" style="width:15px;height:15px;"></i> Adicionar ao Carrinho</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PLAYSTATION ── -->
+<section class="platform-section" style="background:#fff;">
+  <div class="platform-header">
+    <img class="platform-logo" src="" alt="PlayStation" style="background:#003087;padding:10px;border-radius:10px;" />
+    <div class="platform-info">
+      <h2>PlayStation Plus</h2>
+      <p>Jogue online, ganhe jogos mensais e acesse um catálogo incrível</p>
+    </div>
+  </div>
+
+  <div class="plans-grid">
+    <div class="plan-card">
+      <div class="plan-banner">
+        <img src="" alt="PS Plus Essential" />
+        <div class="plan-banner-overlay"></div>
+        <span class="plan-banner-tag"><span class="badge badge-blue">ESSENTIAL</span></span>
+      </div>
+      <div class="plan-body">
+        <p class="plan-name">PS Plus Essential</p>
+        <p class="plan-desc">O básico que todo jogador PlayStation precisa: online e jogos mensais.</p>
+        <ul class="plan-features">
+          <li><i data-lucide="check" class="check" style="width:14px;height:14px;"></i> Multiplayer online</li>
+          <li><i data-lucide="check" class="check" style="width:14px;height:14px;"></i> 2–3 jogos mensais grátis</li>
+          <li><i data-lucide="check" class="check" style="width:14px;height:14px;"></i> Armazenamento na nuvem</li>
+        </ul>
+        <div class="plan-divider"></div>
+        <div class="plan-options">
+          <div class="plan-option sel"><span class="plan-option-label"><i data-lucide="calendar" style="width:13px;height:13px;"></i> 1 Mês</span><span class="plan-option-price">R$ 34,90</span></div>
+          <div class="plan-option"><span class="plan-option-label"><i data-lucide="calendar" style="width:13px;height:13px;"></i> 3 Meses</span><span class="plan-option-price">R$ 89,90</span></div>
+          <div class="plan-option"><span class="plan-option-label"><i data-lucide="calendar" style="width:13px;height:13px;"></i> 12 Meses</span><span class="plan-option-price">R$ 299,90</span></div>
+        </div>
+        <button class="plan-cta outline"><i data-lucide="shopping-cart" style="width:15px;height:15px;"></i> Adicionar ao Carrinho</button>
+      </div>
+    </div>
+
+    <div class="plan-card featured">
+      <div class="plan-featured-ribbon">⭐ MAIS POPULAR</div>
+      <div class="plan-banner" style="margin-top:33px;">
+        <img src="" alt="PS Plus Extra" />
+        <div class="plan-banner-overlay"></div>
+        <span class="plan-banner-tag"><span class="badge badge-yellow">RECOMENDADO</span></span>
+      </div>
+      <div class="plan-body">
+        <p class="plan-name">PS Plus Extra</p>
+        <p class="plan-desc">Tudo do Essential + catálogo de até 400 jogos PS4 e PS5 para jogar à vontade.</p>
+        <ul class="plan-features">
+          <li><i data-lucide="check" class="check" style="width:14px;height:14px;"></i> Tudo do Essential</li>
+          <li><i data-lucide="check" class="check" style="width:14px;height:14px;"></i> +400 jogos PS4/PS5</li>
+          <li><i data-lucide="check" class="check" style="width:14px;height:14px;"></i> Hits exclusivos PlayStation</li>
+          <li><i data-lucide="check" class="check" style="width:14px;height:14px;"></i> Novos títulos todo mês</li>
+        </ul>
+        <div class="plan-divider"></div>
+        <div class="plan-options">
+          <div class="plan-option sel"><span class="plan-option-label"><i data-lucide="calendar" style="width:13px;height:13px;"></i> 1 Mês</span><span class="plan-option-price">R$ 54,90</span></div>
+          <div class="plan-option"><span class="plan-option-label"><i data-lucide="calendar" style="width:13px;height:13px;"></i> 3 Meses</span><span class="plan-option-price">R$ 139,90</span></div>
+          <div class="plan-option"><span class="plan-option-label"><i data-lucide="calendar" style="width:13px;height:13px;"></i> 12 Meses</span><span class="plan-option-price">R$ 479,90</span></div>
+        </div>
+        <button class="plan-cta"><i data-lucide="shopping-cart" style="width:15px;height:15px;"></i> Comprar Agora</button>
+      </div>
+    </div>
+
+    <div class="plan-card">
+      <div class="plan-banner">
+        <img src="" alt="PS Plus Premium" />
+        <div class="plan-banner-overlay"></div>
+        <span class="plan-banner-tag"><span class="badge badge-purple">PREMIUM</span></span>
+      </div>
+      <div class="plan-body">
+        <p class="plan-name">PS Plus Premium</p>
+        <p class="plan-desc">O plano máximo: clássicos PS1, PS2, PSP, streaming e muito mais.</p>
+        <ul class="plan-features">
+          <li><i data-lucide="check" class="check" style="width:14px;height:14px;"></i> Tudo do Extra</li>
+          <li><i data-lucide="check" class="check" style="width:14px;height:14px;"></i> Clássicos PS1/PS2/PSP</li>
+          <li><i data-lucide="check" class="check" style="width:14px;height:14px;"></i> Game streaming</li>
+          <li><i data-lucide="check" class="check" style="width:14px;height:14px;"></i> +700 títulos no total</li>
+        </ul>
+        <div class="plan-divider"></div>
+        <div class="plan-options">
+          <div class="plan-option sel"><span class="plan-option-label"><i data-lucide="calendar" style="width:13px;height:13px;"></i> 1 Mês</span><span class="plan-option-price">R$ 64,90</span></div>
+          <div class="plan-option"><span class="plan-option-label"><i data-lucide="calendar" style="width:13px;height:13px;"></i> 3 Meses</span><span class="plan-option-price">R$ 169,90</span></div>
+          <div class="plan-option"><span class="plan-option-label"><i data-lucide="calendar" style="width:13px;height:13px;"></i> 12 Meses</span><span class="plan-option-price">R$ 579,90</span></div>
+        </div>
+        <button class="plan-cta outline"><i data-lucide="shopping-cart" style="width:15px;height:15px;"></i> Adicionar ao Carrinho</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── OUTROS ── -->
+<section class="platform-section">
+  <div class="platform-header">
+    <img class="platform-logo" src="" alt="Cloud" style="background:#6c2fb8;padding:10px;border-radius:10px;" alt="Cloud" />
+    <div class="platform-info">
+      <h2>Cloud Gaming & Outros</h2>
+      <p>Jogue em qualquer dispositivo sem precisar de hardware potente</p>
+    </div>
+  </div>
+  <div class="product-grid">
+    <div class="product-card">
+      <div class="product-image"><img src="" alt="Boosteroid" /><span class="product-platform-badge">Cloud</span><span class="product-tag-top"><span class="badge badge-purple">CLOUD GAMING</span></span></div>
+      <div class="product-body">
+        <p class="product-name">Boosteroid</p>
+        <p class="product-sub">Jogue no PC fraco, TV, celular — sem instalar</p>
+        <div class="product-buy-row"><span class="product-price">R$ 24,90</span><button class="buy-btn">Comprar</button></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-image"><img src="" alt="EA Play" /><span class="product-platform-badge">EA Play</span><span class="product-tag-top"><span class="badge badge-orange">EA PLAY</span></span></div>
+      <div class="product-body">
+        <p class="product-name">EA Play</p>
+        <p class="product-sub">FIFA, Battlefield, Need for Speed e muito mais</p>
+        <div class="product-buy-row"><span class="product-price">R$ 19,90</span><button class="buy-btn">Comprar</button></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-image"><img src="" alt="Game Pass Compartilhado" /><span class="product-platform-badge">Xbox</span><span class="product-tag-top"><span class="badge badge-gray">COMPARTILHADO</span></span></div>
+      <div class="product-body">
+        <p class="product-name">Game Pass Ultimate Compartilhado</p>
+        <p class="product-sub">Mesma conta, menor preço — Digital Media</p>
+        <div class="product-buy-row"><span class="product-price">R$ 14,90</span><button class="buy-btn">Comprar</button></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-image"><img src="" alt="Nintendo Online" /><span class="product-platform-badge">Nintendo</span><span class="product-tag-top"><span class="badge badge-red">NINTENDO</span></span></div>
+      <div class="product-body">
+        <p class="product-name">Nintendo Switch Online</p>
+        <p class="product-sub">Multiplayer online + jogos clássicos NES/SNES</p>
+        <div class="product-buy-row"><span class="product-price">R$ 29,90</span><button class="buy-btn">Comprar</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="nav-logo"><div class="nav-logo-mark footer-logo-mark">ATM</div><span class="nav-logo-text footer-logo-text">ATM GAMES</span></div>
+      <p class="footer-brand-text">Assinaturas digitais com entrega instantânea e suporte dedicado.</p>
+      <div class="footer-social">
+        <a href="#" class="social-btn"><i data-lucide="instagram" style="width:16px;height:16px;"></i></a>
+        <a href="#" class="social-btn"><i data-lucide="youtube" style="width:16px;height:16px;"></i></a>
+        <a href="#" class="social-btn"><i data-lucide="facebook" style="width:16px;height:16px;"></i></a>
+      </div>
+    </div>
+    <div><p class="footer-col-title">Assinaturas</p><ul class="footer-links"><li><a href="assinaturas.html">Xbox Game Pass</a></li><li><a href="assinaturas.html">PlayStation Plus</a></li><li><a href="assinaturas.html">Boosteroid</a></li><li><a href="assinaturas.html">EA Play</a></li></ul></div>
+    <div><p class="footer-col-title">Gift Cards</p><ul class="footer-links"><li><a href="gift-cards.html">Xbox</a></li><li><a href="gift-cards.html">PlayStation</a></li><li><a href="gift-cards.html">Google Play</a></li></ul></div>
+    <div><p class="footer-col-title">Suporte</p><ul class="footer-links"><li><a href="meus-pedidos.html">Meus Pedidos</a></li><li><a href="contato.html">Contato</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-bottom-text">© 2024 <span>ATM Games</span>. Todos os direitos reservados.</p>
+    <p class="footer-bottom-text">Feito com ❤️ para gamers</p>
+  </div>
+</footer>
+<a href="#" class="whatsapp-fab"><i data-lucide="message-circle" style="width:26px;height:26px;"></i></a>
+<script src=""></script>
+<script>
+  lucide.createIcons();
+  document.querySelectorAll('.plan-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      opt.closest('.plan-options').querySelectorAll('.plan-option').forEach(o => o.classList.remove('sel'));
+      opt.classList.add('sel');
+    });
+  });
+</script>
+</body>
+</html>

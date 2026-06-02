@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jogos — ATM Games</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    .genre-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 40px; }
+    .genre-card {
+      background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--r-lg);
+      padding: 18px 14px; display: flex; flex-direction: column; align-items: center;
+      gap: 10px; cursor: pointer; text-align: center; transition: all .22s;
+      box-shadow: var(--shadow-sm);
+    }
+    .genre-card:hover, .genre-card.active { border-color: var(--green); background: var(--green-light); }
+    .genre-card-img { width: 48px; height: 48px; border-radius: var(--r-sm); object-fit: cover; }
+    .genre-name { font-size: 13px; font-weight: 700; color: var(--ink); }
+    .genre-count { font-size: 11px; color: var(--muted); }
+
+    .games-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .game-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg);
+      overflow: hidden; transition: all .25s; cursor: pointer; display: flex; flex-direction: column;
+      box-shadow: var(--shadow-sm);
+    }
+    .game-card:hover { border-color: var(--green); transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .game-img { height: 180px; overflow: hidden; position: relative; }
+    .game-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s; }
+    .game-card:hover .game-img img { transform: scale(1.06); }
+    .game-platform { position: absolute; top: 8px; left: 8px; padding: 4px 10px; border-radius: var(--r-xs); font-size: 10px; font-weight: 700; background: rgba(255,255,255,0.92); color: var(--ink-2); box-shadow: var(--shadow-sm); }
+    .game-tag { position: absolute; top: 8px; right: 8px; }
+    .game-body { padding: 14px; display: flex; flex-direction: column; gap: 7px; flex: 1; }
+    .game-name { font-size: 14px; font-weight: 700; color: var(--ink); line-height: 1.3; }
+    .game-meta { display: flex; align-items: center; gap: 12px; }
+    .game-rating { font-size: 12px; color: var(--yellow); font-weight: 700; display: flex; align-items: center; gap: 3px; }
+    .game-mode { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+    .game-buy-row { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 10px; border-top: 1px solid var(--border); }
+    .game-price { font-size: 18px; font-weight: 900; color: var(--green); }
+    .game-included { font-size: 11px; font-weight: 700; color: var(--green); background: var(--green-light); padding: 4px 10px; border-radius: 100px; display: flex; align-items: center; gap: 4px; }
+
+    @media (max-width:1200px) { .genre-grid { grid-template-columns: repeat(4,1fr); } .games-grid { grid-template-columns: repeat(3,1fr); } }
+    @media (max-width:900px) { .genre-grid { grid-template-columns: repeat(3,1fr); } .games-grid { grid-template-columns: repeat(2,1fr); } }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo"><div class="nav-logo-mark">ATM</div><span class="nav-logo-text">ATM GAMES</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Início</a></li>
+    <li><a href="assinaturas.html">Assinaturas</a></li>
+    <li><a href="jogos.html" class="nav-active">Jogos</a></li>
+    <li><a href="gift-cards.html">Gift Cards</a></li>
+    <li><a href="meus-pedidos.html">Meus Pedidos</a></li>
+    <li><a href="contato.html">Contato</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="btn btn-ghost"><i data-lucide="user" style="width:15px;height:15px;"></i> Entrar</button>
+    <button class="btn btn-primary"><i data-lucide="shopping-cart" style="width:15px;height:15px;"></i> Carrinho</button>
+  </div>
+</nav>
+
+<div class="page-banner">
+  <p class="page-banner-eyebrow"><i data-lucide="gamepad-2" style="width:13px;height:13px;"></i> CATÁLOGO DE JOGOS</p>
+  <h1 class="page-banner-title">Explore o catálogo</h1>
+  <p class="page-banner-sub">Jogos digitais para Xbox, PlayStation, PC e Nintendo — ação, aventura, RPG, esportes e mais.</p>
+</div>
+
+<section class="section">
+  <div class="section-header">
+    <div>
+      <p class="section-eyebrow"><i data-lucide="grid-2x2" style="width:13px;height:13px;"></i> GÊNEROS</p>
+      <h2 class="section-title">Navegue por categoria</h2>
+    </div>
+  </div>
+
+  <div class="genre-grid">
+    <div class="genre-card active">
+      <img class="genre-card-img" src="" alt="Ação" />
+      <span class="genre-name">Ação</span><span class="genre-count">42 jogos</span>
+    </div>
+    <div class="genre-card">
+      <img class="genre-card-img" src="" alt="Esportes" />
+      <span class="genre-name">Esportes</span><span class="genre-count">28 jogos</span>
+    </div>
+    <div class="genre-card">
+      <img class="genre-card-img" src="" alt="Aventura" />
+      <span class="genre-name">Aventura</span><span class="genre-count">35 jogos</span>
+    </div>
+    <div class="genre-card">
+      <img class="genre-card-img" src="" alt="Corrida" />
+      <span class="genre-name">Corrida</span><span class="genre-count">18 jogos</span>
+    </div>
+    <div class="genre-card">
+      <img class="genre-card-img" src="" alt="Luta" />
+      <span class="genre-name">Luta</span><span class="genre-count">14 jogos</span>
+    </div>
+    <div class="genre-card">
+      <img class="genre-card-img" src="" alt="Terror" />
+      <span class="genre-name">Terror</span><span class="genre-count">22 jogos</span>
+    </div>
+    <div class="genre-card">
+      <img class="genre-card-img" src="" alt="Tiro" />
+      <span class="genre-name">Tiro (FPS)</span><span class="genre-count">31 jogos</span>
+    </div>
+    <div class="genre-card">
+      <img class="genre-card-img" src="" alt="RPG" />
+      <span class="genre-name">RPG</span><span class="genre-count">27 jogos</span>
+    </div>
+    <div class="genre-card">
+      <img class="genre-card-img" src="" alt="Souls Like" />
+      <span class="genre-name">Souls Like</span><span class="genre-count">9 jogos</span>
+    </div>
+    <div class="genre-card">
+      <img class="genre-card-img" src="" alt="Estratégia" />
+      <span class="genre-name">Estratégia</span><span class="genre-count">16 jogos</span>
+    </div>
+  </div>
+
+  <div class="section-header" style="margin-bottom:24px;">
+    <div>
+      <p class="section-eyebrow"><i data-lucide="sword" style="width:13px;height:13px;"></i> AÇÃO</p>
+      <h2 class="section-title">Jogos de Ação</h2>
+    </div>
+    <button class="btn-outline">Ver todos <i data-lucide="arrow-right" style="width:13px;height:13px;vertical-align:middle;"></i></button>
+  </div>
+
+  <div class="filter-pills" style="margin-bottom:24px;">
+    <button class="pill pill-active">Todos</button>
+    <button class="pill pill-inactive">Xbox / PC</button>
+    <button class="pill pill-inactive">PlayStation</button>
+    <button class="pill pill-inactive">No Game Pass</button>
+    <button class="pill pill-inactive">Mais Vendidos</button>
+  </div>
+
+  <div class="games-grid">
+    <div class="game-card">
+      <div class="game-img">
+        <img src="" alt="Halo Infinite" />
+        <span class="game-platform">Xbox / PC</span>
+        <span class="game-tag"><span class="badge badge-green">NO GAME PASS</span></span>
+      </div>
+      <div class="game-body">
+        <p class="game-name">Halo Infinite</p>
+        <div class="game-meta">
+          <span class="game-rating"><i data-lucide="star" style="width:12px;height:12px;fill:currentColor;"></i> 4.8</span>
+          <span class="game-mode"><i data-lucide="users" style="width:11px;height:11px;"></i> Multiplayer</span>
+        </div>
+        <div class="game-buy-row">
+          <span class="game-included"><i data-lucide="check" style="width:11px;height:11px;"></i> Game Pass</span>
+          <button class="buy-btn">Ver</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-img">
+        <img src="" alt="God of War Ragnarök" />
+        <span class="game-platform">PlayStation</span>
+        <span class="game-tag"><span class="badge badge-yellow">MAIS VENDIDO</span></span>
+      </div>
+      <div class="game-body">
+        <p class="game-name">God of War Ragnarök</p>
+        <div class="game-meta">
+          <span class="game-rating"><i data-lucide="star" style="width:12px;height:12px;fill:currentColor;"></i> 5.0</span>
+          <span class="game-mode"><i data-lucide="user" style="width:11px;height:11px;"></i> Single Player</span>
+        </div>
+        <div class="game-buy-row">
+          <span class="game-price">R$ 249,90</span>
+          <button class="buy-btn">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-img">
+        <img src="" alt="Elden Ring" />
+        <span class="game-platform">Xbox / PS / PC</span>
+        <span class="game-tag"><span class="badge badge-purple">SOULS LIKE</span></span>
+      </div>
+      <div class="game-body">
+        <p class="game-name">Elden Ring</p>
+        <div class="game-meta">
+          <span class="game-rating"><i data-lucide="star" style="width:12px;height:12px;fill:currentColor;"></i> 4.9</span>
+          <span class="game-mode"><i data-lucide="users" style="width:11px;height:11px;"></i> Co-op</span>
+        </div>
+        <div class="game-buy-row">
+          <span class="game-price">R$ 199,90</span>
+          <button class="buy-btn">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-img">
+        <img src="" alt="Forza Horizon 5" />
+        <span class="game-platform">Xbox / PC</span>
+        <span class="game-tag"><span class="badge badge-green">NO GAME PASS</span></span>
+      </div>
+      <div class="game-body">
+        <p class="game-name">Forza Horizon 5</p>
+        <div class="game-meta">
+          <span class="game-rating"><i data-lucide="star" style="width:12px;height:12px;fill:currentColor;"></i> 4.9</span>
+          <span class="game-mode"><i data-lucide="users" style="width:11px;height:11px;"></i> Multiplayer</span>
+        </div>
+        <div class="game-buy-row">
+          <span class="game-included"><i data-lucide="check" style="width:11px;height:11px;"></i> Game Pass</span>
+          <button class="buy-btn">Ver</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-img">
+        <img src="" alt="Red Dead Redemption 2" />
+        <span class="game-platform">Xbox / PS / PC</span>
+        <span class="game-tag"><span class="badge badge-yellow">CLÁSSICO</span></span>
+      </div>
+      <div class="game-body">
+        <p class="game-name">Red Dead Redemption 2</p>
+        <div class="game-meta">
+          <span class="game-rating"><i data-lucide="star" style="width:12px;height:12px;fill:currentColor;"></i> 5.0</span>
+          <span class="game-mode"><i data-lucide="user" style="width:11px;height:11px;"></i> Single/Multi</span>
+        </div>
+        <div class="game-buy-row">
+          <span class="game-price">R$ 129,90</span>
+          <button class="buy-btn">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-img">
+        <img src="" alt="Starfield" />
+        <span class="game-platform">Xbox / PC</span>
+        <span class="game-tag"><span class="badge badge-green">NO GAME PASS</span></span>
+      </div>
+      <div class="game-body">
+        <p class="game-name">Starfield</p>
+        <div class="game-meta">
+          <span class="game-rating"><i data-lucide="star" style="width:12px;height:12px;fill:currentColor;"></i> 4.3</span>
+          <span class="game-mode"><i data-lucide="user" style="width:11px;height:11px;"></i> Single Player</span>
+        </div>
+        <div class="game-buy-row">
+          <span class="game-included"><i data-lucide="check" style="width:11px;height:11px;"></i> Game Pass</span>
+          <button class="buy-btn">Ver</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-img">
+        <img src="" alt="Hogwarts Legacy" />
+        <span class="game-platform">Xbox / PS / PC</span>
+        <span class="game-tag"><span class="badge badge-blue">AVENTURA</span></span>
+      </div>
+      <div class="game-body">
+        <p class="game-name">Hogwarts Legacy</p>
+        <div class="game-meta">
+          <span class="game-rating"><i data-lucide="star" style="width:12px;height:12px;fill:currentColor;"></i> 4.7</span>
+          <span class="game-mode"><i data-lucide="user" style="width:11px;height:11px;"></i> Single Player</span>
+        </div>
+        <div class="game-buy-row">
+          <span class="game-price">R$ 179,90</span>
+          <button class="buy-btn">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-img">
+        <img src="" alt="Marvel's Spider-Man 2" />
+        <span class="game-platform">PlayStation 5</span>
+        <span class="game-tag"><span class="badge badge-red">EXCLUSIVO PS5</span></span>
+      </div>
+      <div class="game-body">
+        <p class="game-name">Marvel's Spider-Man 2</p>
+        <div class="game-meta">
+          <span class="game-rating"><i data-lucide="star" style="width:12px;height:12px;fill:currentColor;"></i> 4.9</span>
+          <span class="game-mode"><i data-lucide="user" style="width:11px;height:11px;"></i> Single Player</span>
+        </div>
+        <div class="game-buy-row">
+          <span class="game-price">R$ 299,90</span>
+          <button class="buy-btn">Comprar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="nav-logo"><div class="nav-logo-mark footer-logo-mark">ATM</div><span class="nav-logo-text footer-logo-text">ATM GAMES</span></div>
+      <p class="footer-brand-text">Jogos e assinaturas digitais com entrega instantânea.</p>
+      <div class="footer-social">
+        <a href="#" class="social-btn"><i data-lucide="instagram" style="width:16px;height:16px;"></i></a>
+        <a href="#" class="social-btn"><i data-lucide="youtube" style="width:16px;height:16px;"></i></a>
+        <a href="#" class="social-btn"><i data-lucide="facebook" style="width:16px;height:16px;"></i></a>
+      </div>
+    </div>
+    <div><p class="footer-col-title">Assinaturas</p><ul class="footer-links"><li><a href="assinaturas.html">Xbox Game Pass</a></li><li><a href="assinaturas.html">PlayStation Plus</a></li><li><a href="assinaturas.html">Boosteroid</a></li></ul></div>
+    <div><p class="footer-col-title">Gift Cards</p><ul class="footer-links"><li><a href="gift-cards.html">Xbox</a></li><li><a href="gift-cards.html">PlayStation</a></li></ul></div>
+    <div><p class="footer-col-title">Suporte</p><ul class="footer-links"><li><a href="meus-pedidos.html">Meus Pedidos</a></li><li><a href="contato.html">Contato</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-bottom-text">© 2024 <span>ATM Games</span>. Todos os direitos reservados.</p>
+    <p class="footer-bottom-text">Feito com ❤️ para gamers</p>
+  </div>
+</footer>
+<a href="#" class="whatsapp-fab"><i data-lucide="message-circle" style="width:26px;height:26px;"></i></a>
+<script src=""></script>
+<script>
+  lucide.createIcons();
+  document.querySelectorAll('.genre-card').forEach(c => {
+    c.addEventListener('click', () => { document.querySelectorAll('.genre-card').forEach(x => x.classList.remove('active')); c.classList.add('active'); });
+  });
+  document.querySelectorAll('.pill').forEach(p => {
+    p.addEventListener('click', () => { document.querySelectorAll('.pill').forEach(x => x.className='pill pill-inactive'); p.className='pill pill-active'; });
+  });
+</script>
+</body>
+</html>

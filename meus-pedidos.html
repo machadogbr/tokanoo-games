@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meus Pedidos — ATM Games</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    .orders-layout { display: grid; grid-template-columns: 260px 1fr; gap: 28px; padding: 48px 80px; align-items: start; }
+    .sidebar { position: sticky; top: 84px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow-sm); }
+    .sidebar-profile { padding: 24px; background: linear-gradient(135deg, #0D1B2A, #1B3A2A); display: flex; align-items: center; gap: 14px; }
+    .sidebar-avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,.3); }
+    .sidebar-name { font-size: 15px; font-weight: 700; color: #fff; }
+    .sidebar-email { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+    .sidebar-nav { padding: 12px 8px; display: flex; flex-direction: column; gap: 2px; }
+    .sidebar-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 11px 16px; border-radius: var(--r-sm);
+      cursor: pointer; font-size: 14px; font-weight: 500; color: var(--muted); transition: all .18s;
+    }
+    .sidebar-item:hover { background: var(--surface-2); color: var(--ink); }
+    .sidebar-item.active { background: var(--green-light); color: var(--green); font-weight: 600; }
+    .sidebar-item.danger { color: var(--red); }
+    .sidebar-item.danger:hover { background: var(--red-light); }
+    .sidebar-divider { height: 1px; background: var(--border); margin: 8px 16px; }
+
+    .orders-main { display: flex; flex-direction: column; gap: 20px; }
+    .summary-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .sum-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 20px 22px; box-shadow: var(--shadow-sm); }
+    .sum-label { font-size: 12px; color: var(--muted); font-weight: 600; display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+    .sum-value { font-size: 28px; font-weight: 900; }
+
+    .orders-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .search-input {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--r-sm);
+      padding: 10px 16px; flex: 1; max-width: 320px; transition: border-color .2s;
+    }
+    .search-input:focus-within { border-color: var(--green); }
+    .search-input input { background: none; border: none; outline: none; font-size: 14px; font-family: 'Inter',sans-serif; color: var(--ink); width: 100%; }
+    .search-input input::placeholder { color: var(--light); }
+
+    .order-card {
+      background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--r-lg);
+      padding: 0; overflow: hidden; box-shadow: var(--shadow-sm); transition: all .2s;
+    }
+    .order-card:hover { border-color: var(--green); box-shadow: var(--shadow-md); }
+    .order-card-inner { display: flex; align-items: center; gap: 0; }
+    .order-img { width: 80px; height: 80px; object-fit: cover; flex-shrink: 0; }
+    .order-info { flex: 1; padding: 16px 20px; display: flex; flex-direction: column; gap: 4px; }
+    .order-name { font-size: 14px; font-weight: 700; color: var(--ink); }
+    .order-meta { display: flex; gap: 14px; font-size: 11px; color: var(--light); }
+    .order-meta span { display: flex; align-items: center; gap: 4px; }
+    .status-pill { display: flex; align-items: center; gap: 5px; padding: 4px 11px; border-radius: 100px; font-size: 11px; font-weight: 700; }
+    .status-pill.ok { background: var(--green-light); color: var(--green); }
+    .status-pill.pend { background: var(--yellow-light); color: var(--yellow); }
+    .status-pill.cancel { background: var(--red-light); color: var(--red); }
+    .order-price { font-size: 17px; font-weight: 900; color: var(--ink); padding: 0 20px; white-space: nowrap; }
+    .order-actions { display: flex; gap: 8px; padding: 0 16px; flex-shrink: 0; }
+    .act-btn {
+      padding: 7px 13px; border-radius: var(--r-sm); border: 1.5px solid var(--border);
+      background: transparent; color: var(--muted); font-size: 12px; font-weight: 600;
+      cursor: pointer; transition: all .18s; white-space: nowrap; font-family: 'Inter',sans-serif;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .act-btn:hover { border-color: var(--green); color: var(--green); }
+    .act-btn.primary { background: var(--green); color: #fff; border-color: var(--green); }
+    .act-btn.primary:hover { background: #009a4c; }
+
+    @media (max-width:1100px) { .orders-layout { grid-template-columns: 1fr; padding: 32px 40px; } .sidebar { position: static; } .order-card-inner { flex-wrap: wrap; } .summary-cards { grid-template-columns: 1fr 1fr; } }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo"><div class="nav-logo-mark">ATM</div><span class="nav-logo-text">ATM GAMES</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Início</a></li>
+    <li><a href="assinaturas.html">Assinaturas</a></li>
+    <li><a href="jogos.html">Jogos</a></li>
+    <li><a href="gift-cards.html">Gift Cards</a></li>
+    <li><a href="meus-pedidos.html" class="nav-active">Meus Pedidos</a></li>
+    <li><a href="contato.html">Contato</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="btn btn-ghost"><i data-lucide="user" style="width:15px;height:15px;"></i> Entrar</button>
+    <button class="btn btn-primary"><i data-lucide="shopping-cart" style="width:15px;height:15px;"></i> Carrinho</button>
+  </div>
+</nav>
+
+<div class="page-banner">
+  <p class="page-banner-eyebrow"><i data-lucide="package" style="width:13px;height:13px;"></i> ÁREA DO CLIENTE</p>
+  <h1 class="page-banner-title">Meus Pedidos</h1>
+  <p class="page-banner-sub">Acompanhe seus pedidos, visualize códigos e histórico de compras.</p>
+</div>
+
+<div class="orders-layout">
+  <aside class="sidebar">
+    <div class="sidebar-profile">
+      <img class="sidebar-avatar" src="" alt="Usuário" />
+      <div>
+        <p class="sidebar-name">Gabriel Machado</p>
+        <p class="sidebar-email">gabriel@email.com</p>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-item active"><i data-lucide="package" style="width:16px;height:16px;"></i> Meus Pedidos</div>
+      <div class="sidebar-item"><i data-lucide="key" style="width:16px;height:16px;"></i> Meus Códigos</div>
+      <div class="sidebar-item"><i data-lucide="user" style="width:16px;height:16px;"></i> Minha Conta</div>
+      <div class="sidebar-item"><i data-lucide="heart" style="width:16px;height:16px;"></i> Lista de Desejos</div>
+      <div class="sidebar-item"><i data-lucide="tag" style="width:16px;height:16px;"></i> Cupons</div>
+      <div class="sidebar-divider"></div>
+      <a href="contato.html" class="sidebar-item"><i data-lucide="headphones" style="width:16px;height:16px;"></i> Suporte</a>
+      <div class="sidebar-item danger"><i data-lucide="log-out" style="width:16px;height:16px;"></i> Sair</div>
+    </nav>
+  </aside>
+
+  <main class="orders-main">
+    <div class="summary-cards">
+      <div class="sum-card">
+        <p class="sum-label"><i data-lucide="package" style="width:13px;height:13px;"></i> Total de Pedidos</p>
+        <p class="sum-value" style="color:var(--ink);">12</p>
+      </div>
+      <div class="sum-card">
+        <p class="sum-label"><i data-lucide="check-circle" style="width:13px;height:13px;color:var(--green);"></i> Entregues</p>
+        <p class="sum-value" style="color:var(--green);">11</p>
+      </div>
+      <div class="sum-card">
+        <p class="sum-label"><i data-lucide="trending-up" style="width:13px;height:13px;color:var(--green);"></i> Total Gasto</p>
+        <p class="sum-value" style="color:var(--green);">R$ 487</p>
+      </div>
+    </div>
+
+    <div class="orders-toolbar">
+      <div>
+        <p class="section-eyebrow" style="margin-bottom:4px;"><i data-lucide="list" style="width:12px;height:12px;"></i> HISTÓRICO</p>
+        <h2 style="font-size:18px;font-weight:800;color:var(--ink);">Todos os pedidos</h2>
+      </div>
+      <div class="search-input">
+        <i data-lucide="search" style="width:16px;height:16px;color:var(--light);flex-shrink:0;"></i>
+        <input type="text" placeholder="Buscar pedido..." />
+      </div>
+    </div>
+
+    <div class="filter-pills" style="margin-bottom:0;">
+      <button class="pill pill-active">Todos</button>
+      <button class="pill pill-inactive">Entregues</button>
+      <button class="pill pill-inactive">Pendentes</button>
+    </div>
+
+    <!-- Orders -->
+    <div class="order-card">
+      <div class="order-card-inner">
+        <img class="order-img" src="" alt="Xbox Game Pass" />
+        <div class="order-info">
+          <p class="order-name">Xbox Game Pass Ultimate — 1 Mês</p>
+          <div class="order-meta">
+            <span><i data-lucide="hash" style="width:11px;height:11px;"></i> 4821</span>
+            <span><i data-lucide="calendar" style="width:11px;height:11px;"></i> 02 Jun 2024 · 14:32</span>
+            <span><i data-lucide="zap" style="width:11px;height:11px;"></i> Pix</span>
+          </div>
+          <div style="margin-top:4px;"><span class="status-pill ok"><i data-lucide="check" style="width:10px;height:10px;"></i> Entregue</span></div>
+        </div>
+        <span class="order-price">R$ 44,90</span>
+        <div class="order-actions">
+          <button class="act-btn primary"><i data-lucide="key" style="width:12px;height:12px;"></i> Ver Código</button>
+          <button class="act-btn"><i data-lucide="refresh-ccw" style="width:12px;height:12px;"></i> Recomprar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="order-card">
+      <div class="order-card-inner">
+        <img class="order-img" src="" alt="Xbox Gift Card" />
+        <div class="order-info">
+          <p class="order-name">Xbox Gift Card — R$ 50</p>
+          <div class="order-meta">
+            <span><i data-lucide="hash" style="width:11px;height:11px;"></i> 4798</span>
+            <span><i data-lucide="calendar" style="width:11px;height:11px;"></i> 28 Mai 2024 · 19:05</span>
+            <span><i data-lucide="credit-card" style="width:11px;height:11px;"></i> Cartão de Crédito</span>
+          </div>
+          <div style="margin-top:4px;"><span class="status-pill ok"><i data-lucide="check" style="width:10px;height:10px;"></i> Entregue</span></div>
+        </div>
+        <span class="order-price">R$ 50,00</span>
+        <div class="order-actions">
+          <button class="act-btn primary"><i data-lucide="key" style="width:12px;height:12px;"></i> Ver Código</button>
+          <button class="act-btn"><i data-lucide="refresh-ccw" style="width:12px;height:12px;"></i> Recomprar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="order-card">
+      <div class="order-card-inner">
+        <img class="order-img" src="" alt="Boosteroid" />
+        <div class="order-info">
+          <p class="order-name">Boosteroid Cloud Gaming — 1 Mês</p>
+          <div class="order-meta">
+            <span><i data-lucide="hash" style="width:11px;height:11px;"></i> 4756</span>
+            <span><i data-lucide="calendar" style="width:11px;height:11px;"></i> 15 Mai 2024 · 10:17</span>
+            <span><i data-lucide="zap" style="width:11px;height:11px;"></i> Pix</span>
+          </div>
+          <div style="margin-top:4px;"><span class="status-pill pend"><i data-lucide="clock" style="width:10px;height:10px;"></i> Pendente</span></div>
+        </div>
+        <span class="order-price">R$ 24,90</span>
+        <div class="order-actions">
+          <button class="act-btn"><i data-lucide="eye" style="width:12px;height:12px;"></i> Detalhes</button>
+          <button class="act-btn" style="color:var(--green);border-color:var(--green);"><i data-lucide="message-circle" style="width:12px;height:12px;"></i> Suporte</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="order-card">
+      <div class="order-card-inner">
+        <img class="order-img" src="" alt="PS Plus" />
+        <div class="order-info">
+          <p class="order-name">PlayStation Plus Extra — 3 Meses</p>
+          <div class="order-meta">
+            <span><i data-lucide="hash" style="width:11px;height:11px;"></i> 4701</span>
+            <span><i data-lucide="calendar" style="width:11px;height:11px;"></i> 02 Mai 2024 · 22:44</span>
+            <span><i data-lucide="file-text" style="width:11px;height:11px;"></i> Boleto</span>
+          </div>
+          <div style="margin-top:4px;"><span class="status-pill ok"><i data-lucide="check" style="width:10px;height:10px;"></i> Entregue</span></div>
+        </div>
+        <span class="order-price">R$ 139,90</span>
+        <div class="order-actions">
+          <button class="act-btn primary"><i data-lucide="key" style="width:12px;height:12px;"></i> Ver Código</button>
+          <button class="act-btn"><i data-lucide="refresh-ccw" style="width:12px;height:12px;"></i> Recomprar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="order-card">
+      <div class="order-card-inner">
+        <img class="order-img" src="" alt="Roblox" />
+        <div class="order-info">
+          <p class="order-name">Roblox Gift Card — 800 Robux</p>
+          <div class="order-meta">
+            <span><i data-lucide="hash" style="width:11px;height:11px;"></i> 4634</span>
+            <span><i data-lucide="calendar" style="width:11px;height:11px;"></i> 18 Abr 2024 · 16:30</span>
+            <span><i data-lucide="zap" style="width:11px;height:11px;"></i> Pix</span>
+          </div>
+          <div style="margin-top:4px;"><span class="status-pill ok"><i data-lucide="check" style="width:10px;height:10px;"></i> Entregue</span></div>
+        </div>
+        <span class="order-price">R$ 29,90</span>
+        <div class="order-actions">
+          <button class="act-btn primary"><i data-lucide="key" style="width:12px;height:12px;"></i> Ver Código</button>
+          <button class="act-btn"><i data-lucide="refresh-ccw" style="width:12px;height:12px;"></i> Recomprar</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="nav-logo"><div class="nav-logo-mark footer-logo-mark">ATM</div><span class="nav-logo-text footer-logo-text">ATM GAMES</span></div>
+      <p class="footer-brand-text">Assinaturas digitais com entrega instantânea e suporte dedicado.</p>
+      <div class="footer-social"><a href="#" class="social-btn"><i data-lucide="instagram" style="width:16px;height:16px;"></i></a><a href="#" class="social-btn"><i data-lucide="youtube" style="width:16px;height:16px;"></i></a></div>
+    </div>
+    <div><p class="footer-col-title">Assinaturas</p><ul class="footer-links"><li><a href="assinaturas.html">Xbox Game Pass</a></li><li><a href="assinaturas.html">PlayStation Plus</a></li></ul></div>
+    <div><p class="footer-col-title">Gift Cards</p><ul class="footer-links"><li><a href="gift-cards.html">Xbox</a></li><li><a href="gift-cards.html">PlayStation</a></li></ul></div>
+    <div><p class="footer-col-title">Suporte</p><ul class="footer-links"><li><a href="meus-pedidos.html">Meus Pedidos</a></li><li><a href="contato.html">Contato</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-bottom-text">© 2024 <span>ATM Games</span>. Todos os direitos reservados.</p>
+    <p class="footer-bottom-text">Feito com ❤️ para gamers</p>
+  </div>
+</footer>
+<a href="#" class="whatsapp-fab"><i data-lucide="message-circle" style="width:26px;height:26px;"></i></a>
+<script src=""></script>
+<script>
+  lucide.createIcons();
+  document.querySelectorAll('.pill').forEach(p => {
+    p.addEventListener('click', () => { document.querySelectorAll('.pill').forEach(x => x.className='pill pill-inactive'); p.className='pill pill-active'; });
+  });
+  document.querySelectorAll('.sidebar-item:not(.danger)').forEach(item => {
+    item.addEventListener('click', () => { document.querySelectorAll('.sidebar-item').forEach(x => x.classList.remove('active')); item.classList.add('active'); });
+  });
+</script>
+</body>
+</html>

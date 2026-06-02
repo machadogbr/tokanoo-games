@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contato — ATM Games</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding: 56px 80px; align-items: start; }
+
+    /* Channels */
+    .channels { display: flex; flex-direction: column; gap: 14px; }
+    .channel-card {
+      background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--r-lg);
+      padding: 20px 22px; display: flex; align-items: center; gap: 16px;
+      transition: all .22s; cursor: pointer; box-shadow: var(--shadow-sm);
+    }
+    .channel-card:hover { border-color: var(--green); box-shadow: var(--shadow-md); transform: translateX(4px); }
+    .channel-icon {
+      width: 48px; height: 48px; border-radius: var(--r-md); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .channel-body { flex: 1; }
+    .channel-name { font-size: 15px; font-weight: 700; color: var(--ink); }
+    .channel-desc { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .channel-status { font-size: 11px; font-weight: 700; margin-top: 5px; display: flex; align-items: center; gap: 5px; }
+    .channel-arrow { color: var(--light); flex-shrink: 0; }
+
+    /* Info card */
+    .info-card {
+      background: linear-gradient(135deg, #0D1B2A 0%, #1B3A2A 100%);
+      border-radius: var(--r-xl); padding: 28px; display: flex; flex-direction: column; gap: 16px;
+    }
+    .info-title { font-size: 16px; font-weight: 700; color: #fff; }
+    .info-item { display: flex; align-items: center; gap: 12px; font-size: 14px; color: rgba(255,255,255,.65); }
+    .info-item-icon { color: #00E57A; flex-shrink: 0; }
+
+    /* Form */
+    .form-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-xl);
+      padding: 36px; box-shadow: var(--shadow-md);
+    }
+    .form-title { font-size: 22px; font-weight: 800; color: var(--ink); margin-bottom: 6px; }
+    .form-sub { font-size: 14px; color: var(--muted); margin-bottom: 28px; line-height: 1.55; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .form-label { font-size: 13px; font-weight: 600; color: var(--ink-2); display: flex; align-items: center; gap: 6px; }
+    .form-input, .form-select, .form-textarea {
+      background: var(--surface-2); border: 1.5px solid var(--border);
+      border-radius: var(--r-sm); padding: 11px 14px;
+      color: var(--ink); font-size: 14px; font-family: 'Inter', sans-serif;
+      transition: border-color .2s; outline: none; width: 100%;
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--light); }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--green); background: #fff; }
+    .form-textarea { resize: vertical; min-height: 120px; }
+    .form-submit {
+      width: 100%; padding: 14px; background: var(--green); color: #fff; border: none;
+      border-radius: var(--r-sm); font-size: 15px; font-weight: 700; cursor: pointer;
+      transition: all .2s; font-family: 'Inter',sans-serif; margin-top: 4px;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .form-submit:hover { background: #009a4c; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,184,90,.3); }
+
+    /* FAQ */
+    .faq-section { background: #fff; border-top: 1px solid var(--border); padding: 64px 80px; }
+    .faq-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 36px; }
+    .faq-item {
+      background: var(--bg); border: 1.5px solid var(--border); border-radius: var(--r-lg);
+      padding: 22px 24px; cursor: pointer; transition: all .2s;
+    }
+    .faq-item:hover { border-color: var(--green); background: var(--green-light); }
+    .faq-q { font-size: 14px; font-weight: 700; color: var(--ink); display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+    .faq-icon { color: var(--green); flex-shrink: 0; margin-top: 1px; }
+    .faq-a { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+    @media (max-width: 1100px) {
+      .contact-layout { grid-template-columns: 1fr; padding: 40px; }
+      .faq-grid { grid-template-columns: 1fr; }
+      .faq-section { padding: 48px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo"><div class="nav-logo-mark">ATM</div><span class="nav-logo-text">ATM GAMES</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Início</a></li>
+    <li><a href="assinaturas.html">Assinaturas</a></li>
+    <li><a href="jogos.html">Jogos</a></li>
+    <li><a href="gift-cards.html">Gift Cards</a></li>
+    <li><a href="meus-pedidos.html">Meus Pedidos</a></li>
+    <li><a href="contato.html" class="nav-active">Contato</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="btn btn-ghost"><i data-lucide="user" style="width:15px;height:15px;"></i> Entrar</button>
+    <button class="btn btn-primary"><i data-lucide="shopping-cart" style="width:15px;height:15px;"></i> Carrinho</button>
+  </div>
+</nav>
+
+<div class="page-banner">
+  <p class="page-banner-eyebrow"><i data-lucide="headphones" style="width:13px;height:13px;"></i> SUPORTE</p>
+  <h1 class="page-banner-title">Como podemos ajudar?</h1>
+  <p class="page-banner-sub">Nossa equipe está disponível todos os dias para resolver qualquer dúvida ou problema com seu pedido.</p>
+</div>
+
+<div class="contact-layout">
+  <!-- Esquerda: canais + info -->
+  <div style="display:flex;flex-direction:column;gap:20px;">
+    <div>
+      <p class="section-eyebrow" style="margin-bottom:14px;"><i data-lucide="message-square" style="width:13px;height:13px;"></i> CANAIS DE ATENDIMENTO</p>
+      <div class="channels">
+
+        <a href="#" class="channel-card">
+          <div class="channel-icon" style="background:#e7fdf0;">
+            <i data-lucide="message-circle" style="width:22px;height:22px;color:#25D366;"></i>
+          </div>
+          <div class="channel-body">
+            <p class="channel-name">WhatsApp</p>
+            <p class="channel-desc">Resposta em minutos — atendimento rápido e eficiente</p>
+            <p class="channel-status" style="color:var(--green);">
+              <span style="width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;"></span>
+              Online agora
+            </p>
+          </div>
+          <i data-lucide="chevron-right" class="channel-arrow" style="width:18px;height:18px;"></i>
+        </a>
+
+        <a href="#" class="channel-card">
+          <div class="channel-icon" style="background:var(--blue-light);">
+            <i data-lucide="mail" style="width:22px;height:22px;color:var(--blue);"></i>
+          </div>
+          <div class="channel-body">
+            <p class="channel-name">E-mail</p>
+            <p class="channel-desc">suporte@atmgames.com.br — respondemos em até 2 horas</p>
+            <p class="channel-status" style="color:var(--blue);">
+              <i data-lucide="clock" style="width:11px;height:11px;"></i> Tempo médio: 1h
+            </p>
+          </div>
+          <i data-lucide="chevron-right" class="channel-arrow" style="width:18px;height:18px;"></i>
+        </a>
+
+        <a href="#" class="channel-card">
+          <div class="channel-icon" style="background:var(--purple-light);">
+            <i data-lucide="instagram" style="width:22px;height:22px;color:var(--purple);"></i>
+          </div>
+          <div class="channel-body">
+            <p class="channel-name">Instagram</p>
+            <p class="channel-desc">@atmgames — DM aberta para dúvidas e novidades</p>
+            <p class="channel-status" style="color:var(--purple);">
+              <i data-lucide="clock" style="width:11px;height:11px;"></i> Seg–Sáb, 9h–22h
+            </p>
+          </div>
+          <i data-lucide="chevron-right" class="channel-arrow" style="width:18px;height:18px;"></i>
+        </a>
+
+        <a href="#" class="channel-card">
+          <div class="channel-icon" style="background:var(--red-light);">
+            <i data-lucide="youtube" style="width:22px;height:22px;color:var(--red);"></i>
+          </div>
+          <div class="channel-body">
+            <p class="channel-name">YouTube</p>
+            <p class="channel-desc">Tutoriais de ativação, reviews e novidades</p>
+            <p class="channel-status" style="color:var(--red);">
+              <i data-lucide="video" style="width:11px;height:11px;"></i> Novos vídeos semanalmente
+            </p>
+          </div>
+          <i data-lucide="chevron-right" class="channel-arrow" style="width:18px;height:18px;"></i>
+        </a>
+
+      </div>
+    </div>
+
+    <div class="info-card">
+      <p class="info-title">📍 Informações</p>
+      <div class="info-item">
+        <i data-lucide="map-pin" class="info-item-icon" style="width:16px;height:16px;"></i>
+        Fortaleza, Ceará — Brasil
+      </div>
+      <div class="info-item">
+        <i data-lucide="clock" class="info-item-icon" style="width:16px;height:16px;"></i>
+        Atendimento: Todos os dias, 9h–23h
+      </div>
+      <div class="info-item">
+        <i data-lucide="zap" class="info-item-icon" style="width:16px;height:16px;"></i>
+        Entrega 100% digital e instantânea
+      </div>
+      <div class="info-item">
+        <i data-lucide="shield-check" class="info-item-icon" style="width:16px;height:16px;"></i>
+        Pagamentos seguros — SSL + PCI-DSS
+      </div>
+    </div>
+  </div>
+
+  <!-- Direita: formulário -->
+  <div class="form-card">
+    <p class="form-title">Enviar mensagem</p>
+    <p class="form-sub">Preencha o formulário e nossa equipe entrará em contato em até 2 horas.</p>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label"><i data-lucide="user" style="width:13px;height:13px;"></i> Nome completo</label>
+        <input type="text" class="form-input" placeholder="Seu nome" />
+      </div>
+      <div class="form-group">
+        <label class="form-label"><i data-lucide="mail" style="width:13px;height:13px;"></i> E-mail</label>
+        <input type="email" class="form-input" placeholder="seu@email.com" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label"><i data-lucide="tag" style="width:13px;height:13px;"></i> Assunto</label>
+      <select class="form-select">
+        <option value="">Selecione um assunto</option>
+        <option>Problema com código / ativação</option>
+        <option>Dúvida sobre produto</option>
+        <option>Problema com pagamento</option>
+        <option>Pedido não recebido</option>
+        <option>Solicitar reembolso</option>
+        <option>Parceria / Press</option>
+        <option>Outro assunto</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label"><i data-lucide="hash" style="width:13px;height:13px;"></i> Número do pedido (se houver)</label>
+      <input type="text" class="form-input" placeholder="Ex: #4821" />
+    </div>
+
+    <div class="form-group" style="margin-bottom:0;">
+      <label class="form-label"><i data-lucide="message-square" style="width:13px;height:13px;"></i> Mensagem</label>
+      <textarea class="form-textarea" placeholder="Descreva sua dúvida ou problema com o máximo de detalhes..."></textarea>
+    </div>
+
+    <button class="form-submit" onclick="this.innerHTML='<span>✅ Mensagem enviada com sucesso!</span>'; this.style.background='#009a4c';">
+      <i data-lucide="send" style="width:16px;height:16px;"></i> Enviar Mensagem
+    </button>
+  </div>
+</div>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div style="text-align:center;">
+    <p class="section-eyebrow" style="justify-content:center;"><i data-lucide="help-circle" style="width:13px;height:13px;"></i> PERGUNTAS FREQUENTES</p>
+    <h2 class="section-title">Dúvidas mais comuns</h2>
+    <p class="section-sub" style="text-align:center;max-width:480px;margin:6px auto 0;">Não encontrou sua resposta? Fale com a gente pelo WhatsApp.</p>
+  </div>
+
+  <div class="faq-grid">
+    <div class="faq-item">
+      <div class="faq-q">
+        Como recebo meu código após a compra?
+        <i data-lucide="plus-circle" class="faq-icon" style="width:18px;height:18px;"></i>
+      </div>
+      <p class="faq-a">Após a confirmação do pagamento, o código é enviado automaticamente para o e-mail cadastrado em segundos. Verifique também a pasta de spam.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">
+        Quais formas de pagamento são aceitas?
+        <i data-lucide="plus-circle" class="faq-icon" style="width:18px;height:18px;"></i>
+      </div>
+      <p class="faq-a">Aceitamos Pix (aprovação instantânea), cartão de crédito em até 12x, boleto bancário e saldo em conta ATM Games.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">
+        O código não funcionou — o que fazer?
+        <i data-lucide="plus-circle" class="faq-icon" style="width:18px;height:18px;"></i>
+      </div>
+      <p class="faq-a">Entre em contato pelo WhatsApp com o número do pedido e o print do erro. Resolvemos em até 30 minutos no horário de atendimento.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">
+        Posso comprar para outra região / país?
+        <i data-lucide="plus-circle" class="faq-icon" style="width:18px;height:18px;"></i>
+      </div>
+      <p class="faq-a">Nossos códigos são regionalizados para o Brasil (região BR/América Latina). Para outra região, entre em contato antes de comprar.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">
+        Posso parcelar no cartão de crédito?
+        <i data-lucide="plus-circle" class="faq-icon" style="width:18px;height:18px;"></i>
+      </div>
+      <p class="faq-a">Sim! Parcelamos em até 12x no cartão de crédito para compras acima de R$ 30. As condições variam conforme o banco emissor.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">
+        O site é seguro para compras?
+        <i data-lucide="plus-circle" class="faq-icon" style="width:18px;height:18px;"></i>
+      </div>
+      <p class="faq-a">Sim! Utilizamos criptografia SSL, gateway certificado PCI-DSS e nunca armazenamos dados do cartão. Mais de 10.000 clientes satisfeitos.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="nav-logo"><div class="nav-logo-mark footer-logo-mark">ATM</div><span class="nav-logo-text footer-logo-text">ATM GAMES</span></div>
+      <p class="footer-brand-text">Sua loja de confiança para assinaturas digitais e gift cards. Suporte 24/7.</p>
+      <div class="footer-social">
+        <a href="#" class="social-btn"><i data-lucide="instagram" style="width:16px;height:16px;"></i></a>
+        <a href="#" class="social-btn"><i data-lucide="youtube" style="width:16px;height:16px;"></i></a>
+        <a href="#" class="social-btn"><i data-lucide="facebook" style="width:16px;height:16px;"></i></a>
+        <a href="#" class="social-btn"><i data-lucide="music" style="width:16px;height:16px;"></i></a>
+      </div>
+    </div>
+    <div><p class="footer-col-title">Assinaturas</p><ul class="footer-links"><li><a href="assinaturas.html">Xbox Game Pass</a></li><li><a href="assinaturas.html">PlayStation Plus</a></li><li><a href="assinaturas.html">Boosteroid</a></li></ul></div>
+    <div><p class="footer-col-title">Gift Cards</p><ul class="footer-links"><li><a href="gift-cards.html">Xbox</a></li><li><a href="gift-cards.html">PlayStation</a></li><li><a href="gift-cards.html">Google Play</a></li><li><a href="gift-cards.html">Nintendo</a></li></ul></div>
+    <div><p class="footer-col-title">Suporte</p><ul class="footer-links"><li><a href="meus-pedidos.html">Meus Pedidos</a></li><li><a href="contato.html">Contato</a></li><li><a href="contato.html">Como Funciona</a></li><li><a href="contato.html">Política de Troca</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-bottom-text">© 2024 <span>ATM Games</span>. Todos os direitos reservados. Fortaleza, CE.</p>
+    <p class="footer-bottom-text">Feito com ❤️ para gamers</p>
+  </div>
+</footer>
+
+<a href="#" class="whatsapp-fab"><i data-lucide="message-circle" style="width:26px;height:26px;"></i></a>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>lucide.createIcons();</script>
+</body>
+</html>

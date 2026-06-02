@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gift Cards — ATM Games</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    .gc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+    .gc-card {
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow-sm);
+      transition: all .25s; cursor: pointer; display: flex; flex-direction: column;
+    }
+    .gc-card:hover { border-color: var(--green); transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .gc-cover { height: 150px; position: relative; overflow: hidden; }
+    .gc-cover img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s; }
+    .gc-card:hover .gc-cover img { transform: scale(1.06); }
+    .gc-cover-overlay { position: absolute; inset:0; background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,.5)); }
+    .gc-platform-tag { position: absolute; bottom: 10px; left: 12px; font-size: 11px; font-weight: 800; color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,.5); }
+    .gc-body { padding: 20px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
+    .gc-name { font-size: 17px; font-weight: 800; color: var(--ink); }
+    .gc-desc { font-size: 13px; color: var(--muted); line-height: 1.55; }
+    .gc-values { display: flex; gap: 8px; flex-wrap: wrap; }
+    .gc-val {
+      padding: 7px 14px; border-radius: var(--r-sm);
+      border: 1.5px solid var(--border); background: var(--surface-2);
+      font-size: 13px; font-weight: 700; cursor: pointer; transition: all .18s; color: var(--ink-2);
+    }
+    .gc-val:hover, .gc-val.sel { background: var(--green-light); border-color: var(--green); color: var(--green); }
+    .gc-buy-row { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; border-top: 1px solid var(--border); margin-top: auto; }
+    .gc-price { font-size: 22px; font-weight: 900; color: var(--green); }
+
+    .how-section { background: #fff; border-top: 1px solid var(--border); padding: 64px 80px; }
+    .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; margin-top: 40px; }
+    .step {
+      background: var(--bg); border: 1px solid var(--border); border-radius: var(--r-xl);
+      padding: 28px 22px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px;
+      box-shadow: var(--shadow-sm); transition: all .22s;
+    }
+    .step:hover { border-color: var(--green); box-shadow: var(--shadow-md); }
+    .step-num {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--green-light); border: 2px solid var(--green);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 900; color: var(--green);
+    }
+    .step-icon { color: var(--green); }
+    .step-title { font-size: 15px; font-weight: 700; color: var(--ink); }
+    .step-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    @media (max-width:1100px) { .gc-grid { grid-template-columns: repeat(2,1fr); } .steps-grid { grid-template-columns: repeat(2,1fr); } .how-section { padding: 48px 40px; } }
+    @media (max-width:700px) { .gc-grid { grid-template-columns: 1fr; } .steps-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo"><div class="nav-logo-mark">ATM</div><span class="nav-logo-text">ATM GAMES</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Início</a></li>
+    <li><a href="assinaturas.html">Assinaturas</a></li>
+    <li><a href="jogos.html">Jogos</a></li>
+    <li><a href="gift-cards.html" class="nav-active">Gift Cards</a></li>
+    <li><a href="meus-pedidos.html">Meus Pedidos</a></li>
+    <li><a href="contato.html">Contato</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="btn btn-ghost"><i data-lucide="user" style="width:15px;height:15px;"></i> Entrar</button>
+    <button class="btn btn-primary"><i data-lucide="shopping-cart" style="width:15px;height:15px;"></i> Carrinho</button>
+  </div>
+</nav>
+
+<div class="page-banner">
+  <p class="page-banner-eyebrow"><i data-lucide="gift" style="width:13px;height:13px;"></i> GIFT CARDS DIGITAIS</p>
+  <h1 class="page-banner-title">Presente para qualquer gamer</h1>
+  <p class="page-banner-sub">Saldos digitais para Xbox, PlayStation, Roblox, Google Play e muito mais. Entrega no e-mail em segundos.</p>
+</div>
+
+<section class="section">
+  <div class="section-header">
+    <div>
+      <p class="section-eyebrow"><i data-lucide="credit-card" style="width:13px;height:13px;"></i> TODAS AS PLATAFORMAS</p>
+      <h2 class="section-title">Gift Cards disponíveis</h2>
+    </div>
+  </div>
+
+  <div class="filter-pills" style="margin-bottom:28px;">
+    <button class="pill pill-active">Todos</button>
+    <button class="pill pill-inactive">Xbox</button>
+    <button class="pill pill-inactive">PlayStation</button>
+    <button class="pill pill-inactive">Mobile</button>
+    <button class="pill pill-inactive">Nintendo</button>
+    <button class="pill pill-inactive">Outros</button>
+  </div>
+
+  <div class="gc-grid">
+    <div class="gc-card">
+      <div class="gc-cover">
+        <img src="" alt="Xbox Gift Card" />
+        <div class="gc-cover-overlay"></div>
+        <span class="gc-platform-tag">XBOX</span>
+      </div>
+      <div class="gc-body">
+        <p class="gc-name">Xbox Gift Card</p>
+        <p class="gc-desc">Saldo para compras na Microsoft Store: jogos, DLCs, assinaturas e muito mais.</p>
+        <div class="gc-values">
+          <button class="gc-val">R$ 25</button>
+          <button class="gc-val sel">R$ 50</button>
+          <button class="gc-val">R$ 100</button>
+          <button class="gc-val">R$ 150</button>
+        </div>
+        <div class="gc-buy-row">
+          <span class="gc-price">R$ 50,00</span>
+          <button class="buy-btn">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gc-card">
+      <div class="gc-cover">
+        <img src="" alt="PlayStation Store" />
+        <div class="gc-cover-overlay"></div>
+        <span class="gc-platform-tag">PLAYSTATION</span>
+      </div>
+      <div class="gc-body">
+        <p class="gc-name">PlayStation Store Card</p>
+        <p class="gc-desc">Créditos para a PS Store: jogos, DLCs, PS Plus e conteúdos digitais.</p>
+        <div class="gc-values">
+          <button class="gc-val">R$ 30</button>
+          <button class="gc-val sel">R$ 60</button>
+          <button class="gc-val">R$ 120</button>
+          <button class="gc-val">R$ 240</button>
+        </div>
+        <div class="gc-buy-row">
+          <span class="gc-price">R$ 60,00</span>
+          <button class="buy-btn">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gc-card">
+      <div class="gc-cover">
+        <img src="" alt="Roblox" />
+        <div class="gc-cover-overlay"></div>
+        <span class="gc-platform-tag">ROBLOX</span>
+      </div>
+      <div class="gc-body">
+        <p class="gc-name">Roblox Gift Card</p>
+        <p class="gc-desc">Robux para usar em itens, roupas e experiências no mundo Roblox.</p>
+        <div class="gc-values">
+          <button class="gc-val">400 R$</button>
+          <button class="gc-val sel">800 R$</button>
+          <button class="gc-val">1700 R$</button>
+          <button class="gc-val">4500 R$</button>
+        </div>
+        <div class="gc-buy-row">
+          <span class="gc-price">R$ 29,90</span>
+          <button class="buy-btn">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gc-card">
+      <div class="gc-cover">
+        <img src="" alt="Google Play" />
+        <div class="gc-cover-overlay"></div>
+        <span class="gc-platform-tag">GOOGLE PLAY</span>
+      </div>
+      <div class="gc-body">
+        <p class="gc-name">Google Play Gift Card</p>
+        <p class="gc-desc">Saldo para apps, jogos, filmes e livros na Google Play Store.</p>
+        <div class="gc-values">
+          <button class="gc-val">R$ 15</button>
+          <button class="gc-val sel">R$ 30</button>
+          <button class="gc-val">R$ 60</button>
+          <button class="gc-val">R$ 120</button>
+        </div>
+        <div class="gc-buy-row">
+          <span class="gc-price">R$ 30,00</span>
+          <button class="buy-btn">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gc-card">
+      <div class="gc-cover">
+        <img src="" alt="Nintendo eShop" />
+        <div class="gc-cover-overlay"></div>
+        <span class="gc-platform-tag">NINTENDO</span>
+      </div>
+      <div class="gc-body">
+        <p class="gc-name">Nintendo eShop Card</p>
+        <p class="gc-desc">Créditos para jogos e DLCs na Nintendo eShop para Switch, Wii U e 3DS.</p>
+        <div class="gc-values">
+          <button class="gc-val">R$ 60</button>
+          <button class="gc-val sel">R$ 150</button>
+          <button class="gc-val">R$ 300</button>
+        </div>
+        <div class="gc-buy-row">
+          <span class="gc-price">R$ 150,00</span>
+          <button class="buy-btn">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gc-card">
+      <div class="gc-cover">
+        <img src="" alt="Uber" />
+        <div class="gc-cover-overlay"></div>
+        <span class="gc-platform-tag">UBER</span>
+      </div>
+      <div class="gc-body">
+        <p class="gc-name">Uber Gift Card</p>
+        <p class="gc-desc">Créditos para viagens e pedidos no Uber e Uber Eats — use como quiser.</p>
+        <div class="gc-values">
+          <button class="gc-val">R$ 50</button>
+          <button class="gc-val sel">R$ 100</button>
+          <button class="gc-val">R$ 200</button>
+        </div>
+        <div class="gc-buy-row">
+          <span class="gc-price">R$ 100,00</span>
+          <button class="buy-btn">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gc-card">
+      <div class="gc-cover">
+        <img src="" alt="Steam" />
+        <div class="gc-cover-overlay"></div>
+        <span class="gc-platform-tag">STEAM</span>
+      </div>
+      <div class="gc-body">
+        <p class="gc-name">Steam Wallet Card</p>
+        <p class="gc-desc">Saldo para a maior biblioteca de jogos para PC do mundo.</p>
+        <div class="gc-values">
+          <button class="gc-val">R$ 25</button>
+          <button class="gc-val sel">R$ 50</button>
+          <button class="gc-val">R$ 100</button>
+        </div>
+        <div class="gc-buy-row">
+          <span class="gc-price">R$ 50,00</span>
+          <button class="buy-btn">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gc-card">
+      <div class="gc-cover">
+        <img src="" alt="Razer Gold" />
+        <div class="gc-cover-overlay"></div>
+        <span class="gc-platform-tag">RAZER GOLD</span>
+      </div>
+      <div class="gc-body">
+        <p class="gc-name">Razer Gold</p>
+        <p class="gc-desc">Moeda virtual universal para jogos e centenas de plataformas parceiras.</p>
+        <div class="gc-values">
+          <button class="gc-val">R$ 25</button>
+          <button class="gc-val sel">R$ 50</button>
+          <button class="gc-val">R$ 100</button>
+        </div>
+        <div class="gc-buy-row">
+          <span class="gc-price">R$ 50,00</span>
+          <button class="buy-btn">Comprar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="how-section">
+  <div style="text-align:center;">
+    <p class="section-eyebrow" style="justify-content:center;"><i data-lucide="check-circle" style="width:13px;height:13px;"></i> COMO FUNCIONA</p>
+    <h2 class="section-title">Simples e instantâneo</h2>
+    <p class="section-sub" style="text-align:center;max-width:480px;margin:8px auto 0;">Em menos de 5 minutos você recebe o código e já pode usar na sua plataforma favorita</p>
+  </div>
+  <div class="steps-grid">
+    <div class="step">
+      <div class="step-num">1</div>
+      <i data-lucide="shopping-cart" class="step-icon" style="width:28px;height:28px;"></i>
+      <p class="step-title">Escolha e compre</p>
+      <p class="step-desc">Selecione o gift card e o valor. Adicione ao carrinho e finalize o pedido.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <i data-lucide="credit-card" class="step-icon" style="width:28px;height:28px;"></i>
+      <p class="step-title">Pague com segurança</p>
+      <p class="step-desc">Pix, cartão de crédito em 12x ou boleto. Pagamento 100% seguro e criptografado.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <i data-lucide="mail" class="step-icon" style="width:28px;height:28px;"></i>
+      <p class="step-title">Receba por e-mail</p>
+      <p class="step-desc">O código chega no seu e-mail em segundos após a confirmação do pagamento.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <i data-lucide="gamepad-2" class="step-icon" style="width:28px;height:28px;"></i>
+      <p class="step-title">Ative e aproveite</p>
+      <p class="step-desc">Acesse a plataforma, insira o código e o saldo já aparece na sua conta.</p>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="nav-logo"><div class="nav-logo-mark footer-logo-mark">ATM</div><span class="nav-logo-text footer-logo-text">ATM GAMES</span></div>
+      <p class="footer-brand-text">Gift cards digitais com entrega instantânea e suporte 24/7.</p>
+      <div class="footer-social">
+        <a href="#" class="social-btn"><i data-lucide="instagram" style="width:16px;height:16px;"></i></a>
+        <a href="#" class="social-btn"><i data-lucide="youtube" style="width:16px;height:16px;"></i></a>
+        <a href="#" class="social-btn"><i data-lucide="facebook" style="width:16px;height:16px;"></i></a>
+      </div>
+    </div>
+    <div><p class="footer-col-title">Assinaturas</p><ul class="footer-links"><li><a href="assinaturas.html">Xbox Game Pass</a></li><li><a href="assinaturas.html">PlayStation Plus</a></li></ul></div>
+    <div><p class="footer-col-title">Gift Cards</p><ul class="footer-links"><li><a href="gift-cards.html">Xbox</a></li><li><a href="gift-cards.html">PlayStation</a></li><li><a href="gift-cards.html">Roblox</a></li><li><a href="gift-cards.html">Nintendo</a></li></ul></div>
+    <div><p class="footer-col-title">Suporte</p><ul class="footer-links"><li><a href="meus-pedidos.html">Meus Pedidos</a></li><li><a href="contato.html">Contato</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-bottom-text">© 2024 <span>ATM Games</span>. Todos os direitos reservados.</p>
+    <p class="footer-bottom-text">Feito com ❤️ para gamers</p>
+  </div>
+</footer>
+<a href="#" class="whatsapp-fab"><i data-lucide="message-circle" style="width:26px;height:26px;"></i></a>
+<script src=""></script>
+<script>
+  lucide.createIcons();
+  document.querySelectorAll('.gc-val').forEach(v => {
+    v.addEventListener('click', () => {
+      v.closest('.gc-values').querySelectorAll('.gc-val').forEach(x => x.classList.remove('sel'));
+      v.classList.add('sel');
+    });
+  });
+  document.querySelectorAll('.pill').forEach(p => {
+    p.addEventListener('click', () => { document.querySelectorAll('.pill').forEach(x => x.className='pill pill-inactive'); p.className='pill pill-active'; });
+  });
+</script>
+</body>
+</html>
