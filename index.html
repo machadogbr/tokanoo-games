@@ -182,6 +182,9 @@
       border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: var(--ink-2);
     }
 
+    /* Promo section wrapper */
+    .promo-section { padding: 40px 0; }
+
     @media (max-width:1200px) {
       .hero { grid-template-columns: 1fr; padding: 40px; }
       .hero-side { flex-direction: row; flex-wrap: wrap; }
@@ -191,6 +194,7 @@
       .gift-grid { grid-template-columns: repeat(3,1fr); }
       .testimonials-grid { grid-template-columns: 1fr; }
       .payment-bar { padding: 16px 40px; flex-direction: column; align-items: flex-start; }
+      .promo-section { padding: 32px 0; }
     }
     @media (max-width:900px) {
       .gift-grid { grid-template-columns: repeat(3,1fr); }
@@ -214,6 +218,7 @@
       .testimonials-grid { grid-template-columns: 1fr; }
       .payment-bar { padding: 16px 24px; flex-direction: column; align-items: flex-start; gap: 12px; }
       .payment-icons { flex-wrap: wrap; gap: 8px; }
+      .promo-section { padding: 24px 0; }
     }
     @media (max-width: 600px) {
       .hero { padding: 16px 16px 24px; }
@@ -222,12 +227,15 @@
       .hero-cta-row { flex-direction: column; align-items: flex-start; gap: 10px; }
       .hero-trust { flex-wrap: wrap; gap: 8px; }
       .features-strip { grid-template-columns: 1fr 1fr; padding: 0 16px; }
-      .promo-banner { margin: 0 16px; padding: 20px 16px; }
+      .promo-banner { margin: 0 16px; padding: 20px 16px; flex-direction: column; gap: 12px; }
       .promo-title { font-size: 16px; }
-      .gift-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+      .promo-banner > div:last-child { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+      .gift-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
       .gift-card { padding: 14px 8px; }
       .gift-name { font-size: 11px; }
       .payment-bar { padding: 14px 16px; }
+      .promo-section { padding: 16px 0; }
+      .testimonial-card { padding: 20px; }
     }
   </style>
 </head>
@@ -372,7 +380,7 @@
 </div>
 
 <!-- ── PROMO BANNER ── -->
-<section style="padding:40px 80px;">
+<section class="promo-section">
   <div class="promo-banner">
     <div class="promo-content">
       <p class="promo-tag">⚡ OFERTA LIMITADA</p>

@@ -325,6 +325,7 @@ img { display: block; max-width: 100%; object-fit: cover; }
   .page-banner { padding: 40px 40px; }
   .stats-bar { padding: 20px 40px; }
   .product-grid { grid-template-columns: repeat(3, 1fr); }
+  .section-divider { margin: 0 40px; }
 }
 
 @media (max-width: 900px) {
@@ -355,6 +356,8 @@ img { display: block; max-width: 100%; object-fit: cover; }
   .footer { padding: 40px 24px 28px; }
   .footer-grid { grid-template-columns: 1fr; gap: 28px; }
   .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+
+  .section-divider { margin: 0 24px; }
 }
 
 @media (max-width: 600px) {
@@ -394,4 +397,22 @@ img { display: block; max-width: 100%; object-fit: cover; }
 
   /* Whatsapp FAB */
   .whatsapp-fab { bottom: 16px; right: 16px; width: 48px; height: 48px; }
+
+  .section-divider { margin: 0 16px; }
+}
+
+/* ── VERY SMALL PHONES (≤ 400px) ── */
+@media (max-width: 400px) {
+  .navbar { padding: 0 12px; gap: 8px; }
+  .nav-logo-text { display: none; }
+  .product-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .product-body { padding: 10px; }
+  .product-name { font-size: 11px; }
+  .product-price { font-size: 14px; }
+  .buy-btn { padding: 6px 10px; font-size: 11px; }
+  .page-banner-title { font-size: 20px; }
+  .section { padding: 24px 12px; }
+  .pill { padding: 6px 10px; font-size: 11px; }
+  .footer { padding: 24px 12px 20px; }
+  .btn { padding: 8px 14px; font-size: 13px; }
 }

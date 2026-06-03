@@ -52,9 +52,11 @@
     .step-title { font-size: 15px; font-weight: 700; color: var(--ink); }
     .step-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
 
-    @media (max-width:1100px) { .gc-grid { grid-template-columns: repeat(2,1fr); } .steps-grid { grid-template-columns: repeat(2,1fr); } .how-section { padding: 48px 40px; } }
-    @media (max-width:700px) { .gc-grid { grid-template-columns: 1fr; } .steps-grid { grid-template-columns: 1fr; } }
-
+    @media (max-width: 1100px) {
+      .gc-grid { grid-template-columns: repeat(2, 1fr); }
+      .steps-grid { grid-template-columns: repeat(2, 1fr); }
+      .how-section { padding: 48px 40px; }
+    }
     @media (max-width: 900px) {
       .gc-grid { grid-template-columns: 1fr 1fr; }
       .steps-grid { grid-template-columns: 1fr 1fr; }
@@ -64,8 +66,14 @@
       .gc-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
       .gc-body { padding: 14px; }
       .gc-name { font-size: 15px; }
+      .gc-values { gap: 6px; }
+      .gc-val { padding: 6px 10px; font-size: 12px; }
       .steps-grid { grid-template-columns: 1fr; gap: 14px; }
       .how-section { padding: 28px 16px; }
+    }
+    @media (max-width: 400px) {
+      .gc-grid { grid-template-columns: 1fr; }
+      .gc-cover { height: 120px; }
     }
   </style>
 </head>
