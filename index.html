@@ -4,250 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ATM Games — Assinaturas e Gift Cards Digitais</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="shared.css" />
-  <style>
-
-    /* ── HERO BANNER ── */
-    .hero-banner {
-      background: linear-gradient(135deg, #1a1a1a 0%, #2d1a1a 100%);
-      padding: 0 40px;
-      display: grid;
-      grid-template-columns: 1fr 340px;
-      gap: 0;
-      min-height: 300px;
-      position: relative;
-      overflow: hidden;
-      align-items: center;
-    }
-    .hero-banner::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 70% 50%, rgba(232,0,28,0.15), transparent 60%);
-      pointer-events: none;
-    }
-    .hero-content {
-      padding: 48px 0;
-      position: relative; z-index: 1;
-      display: flex; flex-direction: column; gap: 16px;
-    }
-    .hero-tag {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: var(--red); color: #fff;
-      font-size: 11px; font-weight: 800; letter-spacing: 2px;
-      padding: 5px 12px; border-radius: var(--r-xs); width: fit-content;
-    }
-    .hero-title { font-size: 42px; font-weight: 900; color: #fff; line-height: 1.1; }
-    .hero-title span { color: var(--red); }
-    .hero-sub { font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.6; max-width: 400px; }
-    .hero-price-block { display: flex; align-items: baseline; gap: 12px; }
-    .hero-old-price { font-size: 14px; color: rgba(255,255,255,.35); text-decoration: line-through; }
-    .hero-price { font-size: 40px; font-weight: 900; color: #fff; line-height: 1; }
-    .hero-price-sub { font-size: 13px; color: rgba(255,255,255,.5); }
-    .hero-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-    .hero-btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 13px 28px; background: var(--red); color: #fff;
-      border: none; border-radius: var(--r-md); font-size: 15px; font-weight: 700;
-      cursor: pointer; transition: all .2s; font-family: 'Inter',sans-serif;
-    }
-    .hero-btn:hover { background: #c40018; transform: translateY(-1px); }
-    .hero-link { font-size: 13px; color: rgba(255,255,255,.5); font-weight: 500; transition: color .2s; }
-    .hero-link:hover { color: #fff; }
-    .hero-trust { display: flex; gap: 20px; flex-wrap: wrap; }
-    .hero-trust-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: rgba(255,255,255,.45); }
-
-    /* Hero side products */
-    .hero-side {
-      display: flex; flex-direction: column;
-      background: rgba(255,255,255,0.05);
-      border-left: 1px solid rgba(255,255,255,0.08);
-      height: 100%; min-height: 300px;
-    }
-    .hero-side-title {
-      font-size: 10px; font-weight: 700; letter-spacing: 2px; color: rgba(255,255,255,.3);
-      padding: 14px 18px 10px; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-    .hero-side-card {
-      display: flex; align-items: center; gap: 12px;
-      padding: 12px 18px; border-bottom: 1px solid rgba(255,255,255,0.06);
-      cursor: pointer; transition: background .15s;
-    }
-    .hero-side-card:hover { background: rgba(255,255,255,0.06); }
-    .hero-side-icon {
-      width: 40px; height: 40px; border-radius: var(--r-sm); flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
-    }
-    .hero-side-info { flex: 1; min-width: 0; }
-    .hero-side-name { font-size: 13px; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .hero-side-sub { font-size: 11px; color: rgba(255,255,255,.4); margin-top: 1px; }
-    .hero-side-price { font-size: 14px; font-weight: 900; color: var(--red); flex-shrink: 0; }
-
-    /* ── QUICK CATEGORIES ── */
-    .quick-cats {
-      background: #fff;
-      border-bottom: 1px solid var(--border);
-      padding: 20px 40px;
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 12px;
-    }
-    .quick-cat {
-      display: flex; flex-direction: column; align-items: center; gap: 8px;
-      padding: 16px 8px; border-radius: var(--r-lg); border: 1.5px solid var(--border);
-      cursor: pointer; transition: all .2s; background: #fff; text-align: center;
-    }
-    .quick-cat:hover { border-color: var(--red); background: var(--red-light); }
-    .quick-cat:hover .quick-cat-name { color: var(--red); }
-    .quick-cat-icon {
-      width: 48px; height: 48px; border-radius: var(--r-md);
-      display: flex; align-items: center; justify-content: center; font-size: 24px;
-    }
-    .quick-cat-name { font-size: 12px; font-weight: 700; color: var(--ink-2); }
-
-    /* ── TRUST BAR ── */
-    .trust-bar {
-      background: var(--ink);
-      padding: 0 40px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-    }
-    .trust-item {
-      display: flex; align-items: center; gap: 12px;
-      padding: 16px 20px;
-      border-right: 1px solid rgba(255,255,255,.06);
-    }
-    .trust-item:last-child { border-right: none; }
-    .trust-icon { font-size: 22px; flex-shrink: 0; }
-    .trust-label { font-size: 13px; font-weight: 700; color: #fff; }
-    .trust-sub { font-size: 11px; color: rgba(255,255,255,.4); margin-top: 1px; }
-
-    /* ── PROMO STRIP ── */
-    .promo-strip {
-      background: var(--red);
-      padding: 14px 40px;
-      display: flex; align-items: center; justify-content: space-between; gap: 16px;
-    }
-    .promo-strip-left { display: flex; align-items: center; gap: 16px; }
-    .promo-strip-badge {
-      background: #fff; color: var(--red);
-      font-size: 11px; font-weight: 900; padding: 4px 10px; border-radius: var(--r-xs);
-      letter-spacing: 1px; white-space: nowrap;
-    }
-    .promo-strip-text { font-size: 15px; font-weight: 700; color: #fff; }
-    .promo-strip-sub { font-size: 13px; color: rgba(255,255,255,.75); }
-    .promo-strip-price { font-size: 28px; font-weight: 900; color: #fff; white-space: nowrap; }
-    .promo-strip-btn {
-      padding: 10px 22px; background: #fff; color: var(--red);
-      border: none; border-radius: var(--r-md); font-size: 13px; font-weight: 800;
-      cursor: pointer; transition: all .15s; white-space: nowrap; font-family: 'Inter', sans-serif;
-    }
-    .promo-strip-btn:hover { background: var(--red-light); }
-
-    /* ── SECTIONS ── */
-    .section-wrap { padding: 32px 40px; }
-
-    /* ── GIFT GRID ── */
-    .gift-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
-    .gift-card {
-      background: #fff; border: 1.5px solid var(--border); border-radius: var(--r-lg);
-      padding: 18px 10px; display: flex; flex-direction: column; align-items: center; gap: 8px;
-      cursor: pointer; transition: all .2s; text-align: center;
-    }
-    .gift-card:hover { border-color: var(--red); transform: translateY(-2px); box-shadow: var(--shadow-md); }
-    .gift-card:hover .gift-name { color: var(--red); }
-    .gift-icon {
-      width: 52px; height: 52px; border-radius: var(--r-md); object-fit: cover;
-      display: flex; align-items: center; justify-content: center; font-size: 28px;
-    }
-    .gift-name { font-size: 13px; font-weight: 700; color: var(--ink); }
-    .gift-from { font-size: 10px; color: var(--muted); }
-    .gift-price { font-size: 14px; font-weight: 900; color: var(--red); }
-
-    /* ── PAYMENT BAR ── */
-    .payment-bar {
-      background: #fff; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-      padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; gap: 20px;
-    }
-    .payment-label { font-size: 13px; font-weight: 700; color: var(--ink-2); white-space: nowrap; }
-    .payment-icons { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .payment-chip {
-      display: flex; align-items: center; gap: 5px;
-      padding: 5px 12px; background: var(--surface-2); border: 1px solid var(--border);
-      border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: var(--ink-2);
-    }
-
-    /* ── TESTIMONIALS ── */
-    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .testimonial-card {
-      background: #fff; border: 1px solid var(--border); border-radius: var(--r-lg);
-      padding: 24px; display: flex; flex-direction: column; gap: 12px;
-    }
-    .testimonial-stars { display: flex; gap: 2px; color: var(--yellow); font-size: 14px; }
-    .testimonial-text { font-size: 14px; color: var(--muted); line-height: 1.65; flex: 1; }
-    .testimonial-author { display: flex; align-items: center; gap: 10px; padding-top: 12px; border-top: 1px solid var(--border); }
-    .author-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--surface-2); display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0; }
-    .author-name { font-size: 13px; font-weight: 700; color: var(--ink); }
-    .author-role { font-size: 11px; color: var(--muted); }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 1200px) {
-      .hero-banner { grid-template-columns: 1fr; padding: 0 24px; }
-      .hero-side { display: none; }
-      .quick-cats { grid-template-columns: repeat(3, 1fr); padding: 16px 24px; }
-      .trust-bar { grid-template-columns: repeat(2, 1fr); padding: 0 24px; }
-      .trust-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,.06); }
-      .trust-item:nth-child(2n) { border-right: none; }
-      .gift-grid { grid-template-columns: repeat(3, 1fr); }
-      .promo-strip { padding: 14px 24px; flex-direction: column; align-items: flex-start; gap: 10px; }
-      .promo-strip-price { font-size: 22px; }
-      .section-wrap { padding: 28px 24px; }
-      .payment-bar { padding: 14px 24px; flex-direction: column; align-items: flex-start; }
-      .testimonials-grid { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 900px) {
-      .hero-banner { padding: 0 20px; min-height: 240px; }
-      .hero-title { font-size: 30px; }
-      .hero-content { padding: 32px 0; }
-      .quick-cats { padding: 14px 20px; gap: 10px; }
-      .trust-bar { padding: 0 20px; }
-      .gift-grid { grid-template-columns: repeat(3, 1fr); }
-      .promo-strip { padding: 12px 20px; }
-      .section-wrap { padding: 24px 20px; }
-      .payment-bar { padding: 12px 20px; }
-    }
-
-    @media (max-width: 600px) {
-      .hero-banner { padding: 0 14px; }
-      .hero-title { font-size: 24px; }
-      .hero-content { padding: 24px 0; gap: 12px; }
-      .hero-price { font-size: 30px; }
-      .hero-btn { padding: 11px 20px; font-size: 14px; }
-      .quick-cats { grid-template-columns: repeat(3, 1fr); padding: 12px 14px; gap: 8px; }
-      .quick-cat { padding: 12px 4px; }
-      .quick-cat-icon { width: 40px; height: 40px; font-size: 20px; }
-      .trust-bar { grid-template-columns: 1fr 1fr; padding: 0 14px; }
-      .gift-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-      .promo-strip { padding: 12px 14px; }
-      .promo-strip-text { font-size: 14px; }
-      .section-wrap { padding: 20px 14px; }
-      .testimonials-grid { grid-template-columns: 1fr; }
-      .payment-bar { padding: 12px 14px; }
-    }
-  </style>
 </head>
 <body>
 
-<!-- ── ANNOUNCE BAR ── -->
-<div class="announce-bar">
-  🔥 FRETE GRÁTIS em todos os pedidos · Entrega imediata por e-mail · Suporte 24/7 no WhatsApp
+<!-- TOP BAR -->
+<div class="topbar">
+  <span>⚡ Entrega digital instantânea · Suporte 24/7 via WhatsApp</span>
+  <span>
+    <a href="meus-pedidos.html">Meus Pedidos</a> &nbsp;|&nbsp;
+    <a href="contato.html">Contato</a>
+  </span>
 </div>
 
-<!-- ── NAVBAR ── -->
+<!-- NAVBAR -->
 <nav class="navbar">
   <a href="index.html" class="nav-logo">
     <div class="nav-logo-mark">ATM</div>
@@ -255,41 +26,38 @@
   </a>
 
   <div class="nav-search">
-    <input type="text" placeholder="Buscar assinatura, gift card..." />
-    <button class="nav-search-btn">
-      <i data-lucide="search" style="width:16px;height:16px;"></i>
-    </button>
+    <input type="text" placeholder="Buscar assinatura, gift card, jogo..." />
+    <button class="nav-search-btn">🔍 Buscar</button>
   </div>
 
-  <div class="nav-actions">
-    <button class="nav-account-btn">
-      <i data-lucide="user" style="width:15px;height:15px;"></i> Entrar
+  <div class="nav-right">
+    <a href="#" class="nav-account">👤 Entrar</a>
+    <button class="nav-cart">
+      🛒 Carrinho <span class="nav-cart-count">2</span>
     </button>
-    <button class="nav-cart-btn">
-      <i data-lucide="shopping-cart" style="width:15px;height:15px;"></i> Carrinho
-      <span class="nav-cart-count">2</span>
-    </button>
-    <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+    <button class="nav-hamburger" id="navHamburger">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
 
-<!-- ── CATEGORY BAR ── -->
-<nav class="category-bar">
-  <a href="index.html" class="cat-active">🏠 Início</a>
-  <a href="assinaturas.html">🎮 Xbox Game Pass</a>
-  <a href="assinaturas.html">🎮 PlayStation Plus</a>
-  <a href="assinaturas.html">☁️ Cloud Gaming</a>
-  <a href="gift-cards.html">🎁 Gift Cards</a>
-  <a href="jogos.html">🕹️ Jogos</a>
-  <a href="contato.html">📞 Contato</a>
-  <a href="assinaturas.html" class="category-bar-highlight">⚡ Ofertas</a>
+<!-- CATEGORY NAV -->
+<nav class="cat-nav">
+  <a href="index.html" class="active">Início</a>
+  <a href="assinaturas.html">Xbox Game Pass</a>
+  <a href="assinaturas.html">PlayStation Plus</a>
+  <a href="assinaturas.html">EA Play</a>
+  <a href="assinaturas.html">Cloud Gaming</a>
+  <a href="gift-cards.html">Gift Cards</a>
+  <a href="jogos.html">Jogos</a>
+  <a href="meus-pedidos.html">Meus Pedidos</a>
+  <a href="contato.html">Contato</a>
+  <a href="assinaturas.html" class="cat-nav-offer">⚡ Ofertas</a>
 </nav>
 
-<!-- Mobile nav drawer -->
+<!-- Mobile Menu -->
 <div class="nav-mobile" id="navMobile">
-  <a href="index.html" class="nav-active">🏠 Início</a>
+  <a href="index.html" class="active">🏠 Início</a>
   <a href="assinaturas.html">🎮 Assinaturas</a>
   <a href="jogos.html">🕹️ Jogos</a>
   <a href="gift-cards.html">🎁 Gift Cards</a>
@@ -297,87 +65,54 @@
   <a href="contato.html">📞 Contato</a>
   <div class="nav-mobile-divider"></div>
   <div class="nav-mobile-actions">
-    <button class="btn btn-ghost">Entrar</button>
-    <button class="btn btn-primary">🛒 Carrinho (2)</button>
+    <button class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,.3);">👤 Entrar</button>
+    <button class="btn btn-blue">🛒 Carrinho (2)</button>
   </div>
 </div>
 
-<!-- ── HERO BANNER ── -->
+<!-- HERO BANNER -->
 <section class="hero-banner">
-  <div class="hero-content">
-    <span class="hero-tag">
-      <i data-lucide="zap" style="width:11px;height:11px;"></i> DESTAQUE DO MÊS
-    </span>
-    <h1 class="hero-title">Xbox Game Pass<br><span>Ultimate</span></h1>
-    <p class="hero-sub">Mais de 100 jogos premium, Xbox Live Gold e EA Play inclusos. Ative hoje e jogue agora.</p>
-    <div class="hero-price-block">
-      <div>
-        <span class="hero-old-price">De R$ 59,90</span>
-        <div style="display:flex;align-items:baseline;gap:8px;">
-          <span class="hero-price">R$ 44,90</span>
-          <span class="hero-price-sub">/ mês</span>
-        </div>
-        <span style="font-size:12px;color:var(--green);font-weight:700;">ou R$ 42,66 no Pix</span>
+  <div class="hero-inner">
+    <div>
+      <span class="hero-tag">DESTAQUE DO MÊS</span>
+      <h1 class="hero-title">Xbox Game Pass <span>Ultimate</span></h1>
+      <p class="hero-sub">Mais de 100 jogos premium, Xbox Live Gold e EA Play. Ative hoje.</p>
+      <div class="hero-price-wrap">
+        <p class="hero-old">De R$ 59,90</p>
+        <p class="hero-price">R$ 44,90</p>
+        <p class="hero-pix">💰 R$ 42,66 no Pix</p>
       </div>
+      <button class="hero-btn">Comprar Agora →</button>
     </div>
-    <div class="hero-actions">
-      <button class="hero-btn">
-        Comprar Agora <i data-lucide="arrow-right" style="width:15px;height:15px;"></i>
-      </button>
-      <a href="assinaturas.html" class="hero-link">Ver todos os planos →</a>
-    </div>
-    <div class="hero-trust">
-      <div class="hero-trust-item">
-        <i data-lucide="zap" style="width:12px;height:12px;"></i> Entrega imediata
-      </div>
-      <div class="hero-trust-item">
-        <i data-lucide="shield-check" style="width:12px;height:12px;"></i> 100% seguro
-      </div>
-      <div class="hero-trust-item">
-        <i data-lucide="star" style="width:12px;height:12px;"></i> +10k clientes
-      </div>
-    </div>
-  </div>
 
-  <div class="hero-side">
-    <p class="hero-side-title">🔥 Mais Vendidos</p>
-    <a href="assinaturas.html" class="hero-side-card">
-      <div class="hero-side-icon" style="background:#107c10;">🎮</div>
-      <div class="hero-side-info">
-        <p class="hero-side-name">Game Pass PC</p>
-        <p class="hero-side-sub">3 meses de acesso</p>
-      </div>
-      <span class="hero-side-price">R$ 64,90</span>
-    </a>
-    <a href="assinaturas.html" class="hero-side-card">
-      <div class="hero-side-icon" style="background:#003087;">🎮</div>
-      <div class="hero-side-info">
-        <p class="hero-side-name">PlayStation Plus</p>
-        <p class="hero-side-sub">Jogos mensais + online</p>
-      </div>
-      <span class="hero-side-price">R$ 34,90</span>
-    </a>
-    <a href="gift-cards.html" class="hero-side-card">
-      <div class="hero-side-icon" style="background:#107c10;">🎁</div>
-      <div class="hero-side-info">
-        <p class="hero-side-name">Xbox Gift Card</p>
-        <p class="hero-side-sub">Saldo imediato</p>
-      </div>
-      <span class="hero-side-price">R$ 50,00</span>
-    </a>
-    <a href="assinaturas.html" class="hero-side-card">
-      <div class="hero-side-icon" style="background:#1a1a2e;">☁️</div>
-      <div class="hero-side-info">
-        <p class="hero-side-name">Boosteroid</p>
-        <p class="hero-side-sub">Cloud gaming 1 mês</p>
-      </div>
-      <span class="hero-side-price">R$ 24,90</span>
-    </a>
+    <div class="hero-side-list">
+      <p class="hero-side-list-title">🔥 Mais Vendidos</p>
+      <a href="assinaturas.html" class="hero-side-item">
+        <span class="hero-side-name">Game Pass PC · 3 Meses</span>
+        <span class="hero-side-price">R$ 64,90</span>
+      </a>
+      <a href="assinaturas.html" class="hero-side-item">
+        <span class="hero-side-name">PlayStation Plus Essential</span>
+        <span class="hero-side-price">R$ 34,90</span>
+      </a>
+      <a href="gift-cards.html" class="hero-side-item">
+        <span class="hero-side-name">Xbox Gift Card R$ 50</span>
+        <span class="hero-side-price">R$ 50,00</span>
+      </a>
+      <a href="assinaturas.html" class="hero-side-item">
+        <span class="hero-side-name">Boosteroid · 1 Mês</span>
+        <span class="hero-side-price">R$ 24,90</span>
+      </a>
+      <a href="assinaturas.html" class="hero-side-item">
+        <span class="hero-side-name">EA Play · 1 Mês</span>
+        <span class="hero-side-price">R$ 19,90</span>
+      </a>
+    </div>
   </div>
 </section>
 
-<!-- ── TRUST BAR ── -->
-<div class="trust-bar">
+<!-- TRUST STRIP -->
+<div class="trust-strip">
   <div class="trust-item">
     <span class="trust-icon">⚡</span>
     <div><p class="trust-label">Entrega Instantânea</p><p class="trust-sub">Código no e-mail em segundos</p></div>
@@ -392,373 +127,334 @@
   </div>
   <div class="trust-item">
     <span class="trust-icon">🔄</span>
-    <div><p class="trust-label">Garantia de Troca</p><p class="trust-sub">Código com problema? Trocamos</p></div>
+    <div><p class="trust-label">Garantia de Troca</p><p class="trust-sub">Código inválido? Trocamos</p></div>
   </div>
 </div>
 
-<!-- ── QUICK CATEGORIES ── -->
-<div class="quick-cats">
-  <a href="assinaturas.html" class="quick-cat">
-    <div class="quick-cat-icon" style="background:#e8f5e9;">🎮</div>
-    <span class="quick-cat-name">Xbox Game Pass</span>
-  </a>
-  <a href="assinaturas.html" class="quick-cat">
-    <div class="quick-cat-icon" style="background:#e8eaf6;">🎮</div>
-    <span class="quick-cat-name">PlayStation Plus</span>
-  </a>
-  <a href="assinaturas.html" class="quick-cat">
-    <div class="quick-cat-icon" style="background:#fff3e0;">☁️</div>
-    <span class="quick-cat-name">Cloud Gaming</span>
-  </a>
-  <a href="gift-cards.html" class="quick-cat">
-    <div class="quick-cat-icon" style="background:#fce4ec;">🎁</div>
-    <span class="quick-cat-name">Gift Cards</span>
-  </a>
-  <a href="jogos.html" class="quick-cat">
-    <div class="quick-cat-icon" style="background:#e0f7fa;">🕹️</div>
-    <span class="quick-cat-name">Jogos PC</span>
-  </a>
-  <a href="assinaturas.html" class="quick-cat">
-    <div class="quick-cat-icon" style="background:#fce4ec;">⚡</div>
-    <span class="quick-cat-name">Ofertas</span>
-  </a>
+<!-- CATEGORY TILES -->
+<div style="background:#fff;border-bottom:1px solid #ddd;padding:20px;">
+  <div class="cat-tiles" style="max-width:1200px;margin:0 auto;">
+    <a href="assinaturas.html" class="cat-tile">
+      <div class="cat-tile-icon">🎮</div>
+      <span class="cat-tile-name">Xbox Game Pass</span>
+    </a>
+    <a href="assinaturas.html" class="cat-tile">
+      <div class="cat-tile-icon">🎮</div>
+      <span class="cat-tile-name">PlayStation Plus</span>
+    </a>
+    <a href="assinaturas.html" class="cat-tile">
+      <div class="cat-tile-icon">☁️</div>
+      <span class="cat-tile-name">Cloud Gaming</span>
+    </a>
+    <a href="gift-cards.html" class="cat-tile">
+      <div class="cat-tile-icon">🎁</div>
+      <span class="cat-tile-name">Gift Cards</span>
+    </a>
+    <a href="jogos.html" class="cat-tile">
+      <div class="cat-tile-icon">🕹️</div>
+      <span class="cat-tile-name">Jogos PC</span>
+    </a>
+    <a href="assinaturas.html" class="cat-tile" style="border-color:#e8001c;">
+      <div class="cat-tile-icon">⚡</div>
+      <span class="cat-tile-name" style="color:#e8001c;">Ofertas</span>
+    </a>
+  </div>
 </div>
 
-<!-- ── PROMO STRIP ── -->
-<div class="promo-strip">
-  <div class="promo-strip-left">
-    <span class="promo-strip-badge">⚡ OFERTA</span>
-    <div>
-      <p class="promo-strip-text">Game Pass Ultimate 3 Meses — Economize R$ 14!</p>
-      <p class="promo-strip-sub">Válido só esta semana · De R$ 134,70</p>
-    </div>
+<!-- OFFER STRIP -->
+<div class="offer-strip">
+  <div>
+    <p class="offer-strip-text">⚡ OFERTA DA SEMANA — Game Pass Ultimate 3 Meses</p>
+    <p class="offer-strip-sub">Economize R$ 14,80 · De R$ 134,70 · Válido até domingo</p>
   </div>
   <div style="display:flex;align-items:center;gap:20px;">
-    <span class="promo-strip-price">R$ 119,90</span>
-    <button class="promo-strip-btn">Aproveitar →</button>
+    <span class="offer-strip-price">R$ 119,90</span>
+    <button class="offer-strip-btn">Comprar →</button>
   </div>
 </div>
 
-<!-- ── ASSINATURAS ── -->
-<section class="section-wrap section-alt" id="assinaturas">
-  <div class="section-header">
-    <div>
-      <h2 class="section-title">Assinaturas em Destaque</h2>
-      <p class="section-sub">Entrega digital imediata — ative hoje e comece a jogar agora</p>
+<!-- ASSINATURAS -->
+<div style="background:#f0f0f0;padding:20px 20px 28px;">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-hd">
+      <h2>Assinaturas em Destaque</h2>
+      <a href="assinaturas.html">Ver todas as assinaturas →</a>
     </div>
-    <a href="assinaturas.html"><button class="btn-outline">Ver todas →</button></a>
-  </div>
 
-  <div class="filter-pills">
-    <button class="pill pill-active">Todos</button>
-    <button class="pill pill-inactive">Xbox</button>
-    <button class="pill pill-inactive">PlayStation</button>
-    <button class="pill pill-inactive">Cloud Gaming</button>
-    <button class="pill pill-inactive">EA Play</button>
-  </div>
+    <div class="filter-pills">
+      <button class="pill pill-active">Todos</button>
+      <button class="pill pill-inactive">Xbox</button>
+      <button class="pill pill-inactive">PlayStation</button>
+      <button class="pill pill-inactive">Cloud Gaming</button>
+      <button class="pill pill-inactive">EA Play</button>
+    </div>
 
-  <div class="product-grid">
+    <div class="product-grid">
 
-    <div class="product-card">
-      <div class="product-image">
-        <img src="" alt="Xbox Game Pass Ultimate" />
-        <span class="product-platform-badge">Xbox</span>
-        <span class="product-discount-badge">-25%</span>
-      </div>
-      <div class="product-body">
-        <span class="product-category">Assinatura</span>
-        <p class="product-name">Xbox Game Pass Ultimate</p>
-        <p class="product-sub">1 Mês · 100+ jogos · Gold + EA Play</p>
-        <div class="product-price-block">
+      <div class="product-card">
+        <a href="assinaturas.html" style="display:block;">
+          <div class="product-img-wrap">
+            <div class="product-img-placeholder">Xbox Game Pass Ultimate</div>
+            <span class="product-discount-badge">-25%</span>
+          </div>
+        </a>
+        <div class="product-info">
+          <a href="assinaturas.html" class="product-name">Xbox Game Pass Ultimate · 1 Mês</a>
+          <span class="product-sku">100+ jogos · Gold + EA Play</span>
           <p class="product-old-price">R$ 59,90</p>
           <p class="product-price">R$ 44,90</p>
           <p class="product-pix">💰 R$ 42,66 no Pix</p>
+          <p class="product-installment">ou 12x de R$ 4,39 sem juros</p>
         </div>
-        <div class="product-buy-row">
-          <button class="buy-btn">Comprar Agora</button>
-        </div>
+        <button class="product-add-btn">Adicionar ao Carrinho</button>
       </div>
-    </div>
 
-    <div class="product-card">
-      <div class="product-image">
-        <img src="" alt="Game Pass Core" />
-        <span class="product-platform-badge">Xbox</span>
-        <span class="product-discount-badge">-18%</span>
-      </div>
-      <div class="product-body">
-        <span class="product-category">Assinatura</span>
-        <p class="product-name">Game Pass Core 12 Meses</p>
-        <p class="product-sub">12 Meses · Melhor custo-benefício</p>
-        <div class="product-price-block">
+      <div class="product-card">
+        <a href="assinaturas.html" style="display:block;">
+          <div class="product-img-wrap">
+            <div class="product-img-placeholder">Game Pass Core 12 Meses</div>
+            <span class="product-discount-badge">-17%</span>
+          </div>
+        </a>
+        <div class="product-info">
+          <a href="assinaturas.html" class="product-name">Game Pass Core · 12 Meses</a>
+          <span class="product-sku">Melhor custo-benefício · Online</span>
           <p class="product-old-price">R$ 179,90</p>
           <p class="product-price">R$ 149,90</p>
           <p class="product-pix">💰 R$ 142,41 no Pix</p>
+          <p class="product-installment">ou 12x de R$ 14,78 sem juros</p>
         </div>
-        <div class="product-buy-row">
-          <button class="buy-btn">Comprar Agora</button>
-        </div>
+        <button class="product-add-btn">Adicionar ao Carrinho</button>
       </div>
-    </div>
 
-    <div class="product-card">
-      <div class="product-image">
-        <img src="" alt="PlayStation Plus Essential" />
-        <span class="product-platform-badge">PlayStation</span>
-        <span class="product-discount-badge">-22%</span>
-      </div>
-      <div class="product-body">
-        <span class="product-category">Assinatura</span>
-        <p class="product-name">PlayStation Plus Essential</p>
-        <p class="product-sub">3 Meses · Jogos mensais grátis</p>
-        <div class="product-price-block">
+      <div class="product-card">
+        <a href="assinaturas.html" style="display:block;">
+          <div class="product-img-wrap">
+            <div class="product-img-placeholder">PlayStation Plus Essential</div>
+            <span class="product-discount-badge">-22%</span>
+          </div>
+        </a>
+        <div class="product-info">
+          <a href="assinaturas.html" class="product-name">PlayStation Plus Essential · 3 Meses</a>
+          <span class="product-sku">Jogos mensais grátis + online</span>
           <p class="product-old-price">R$ 114,90</p>
           <p class="product-price">R$ 89,90</p>
           <p class="product-pix">💰 R$ 85,41 no Pix</p>
+          <p class="product-installment">ou 12x de R$ 8,84 sem juros</p>
         </div>
-        <div class="product-buy-row">
-          <button class="buy-btn">Comprar Agora</button>
-        </div>
+        <button class="product-add-btn">Adicionar ao Carrinho</button>
       </div>
-    </div>
 
-    <div class="product-card">
-      <div class="product-image">
-        <img src="" alt="Boosteroid" />
-        <span class="product-platform-badge">Cloud</span>
-        <span class="product-discount-badge">-30%</span>
-      </div>
-      <div class="product-body">
-        <span class="product-category">Cloud Gaming</span>
-        <p class="product-name">Boosteroid Cloud Gaming</p>
-        <p class="product-sub">1 Mês · Sem hardware necessário</p>
-        <div class="product-price-block">
+      <div class="product-card">
+        <a href="assinaturas.html" style="display:block;">
+          <div class="product-img-wrap">
+            <div class="product-img-placeholder">Boosteroid Cloud Gaming</div>
+            <span class="product-discount-badge">-29%</span>
+          </div>
+        </a>
+        <div class="product-info">
+          <a href="assinaturas.html" class="product-name">Boosteroid Cloud Gaming · 1 Mês</a>
+          <span class="product-sku">Sem hardware · Jogue em qualquer tela</span>
           <p class="product-old-price">R$ 34,90</p>
           <p class="product-price">R$ 24,90</p>
           <p class="product-pix">💰 R$ 23,66 no Pix</p>
+          <p class="product-installment">ou 12x de R$ 2,44 sem juros</p>
         </div>
-        <div class="product-buy-row">
-          <button class="buy-btn">Comprar Agora</button>
-        </div>
+        <button class="product-add-btn">Adicionar ao Carrinho</button>
       </div>
-    </div>
 
-    <div class="product-card">
-      <div class="product-image">
-        <img src="" alt="PlayStation Plus Extra" />
-        <span class="product-platform-badge">PlayStation</span>
-        <span class="product-discount-badge">-20%</span>
-      </div>
-      <div class="product-body">
-        <span class="product-category">Assinatura</span>
-        <p class="product-name">PlayStation Plus Extra</p>
-        <p class="product-sub">1 Mês · 400+ jogos PS4 e PS5</p>
-        <div class="product-price-block">
+      <div class="product-card">
+        <a href="assinaturas.html" style="display:block;">
+          <div class="product-img-wrap">
+            <div class="product-img-placeholder">PlayStation Plus Extra</div>
+            <span class="product-discount-badge">-20%</span>
+          </div>
+        </a>
+        <div class="product-info">
+          <a href="assinaturas.html" class="product-name">PlayStation Plus Extra · 1 Mês</a>
+          <span class="product-sku">400+ jogos PS4 e PS5</span>
           <p class="product-old-price">R$ 68,90</p>
           <p class="product-price">R$ 54,90</p>
           <p class="product-pix">💰 R$ 52,16 no Pix</p>
+          <p class="product-installment">ou 12x de R$ 5,40 sem juros</p>
         </div>
-        <div class="product-buy-row">
-          <button class="buy-btn">Comprar Agora</button>
-        </div>
+        <button class="product-add-btn">Adicionar ao Carrinho</button>
       </div>
-    </div>
 
-    <div class="product-card">
-      <div class="product-image">
-        <img src="" alt="EA Play" />
-        <span class="product-platform-badge">EA / Xbox</span>
-        <span class="product-discount-badge">-33%</span>
-      </div>
-      <div class="product-body">
-        <span class="product-category">Assinatura</span>
-        <p class="product-name">EA Play</p>
-        <p class="product-sub">1 Mês · FIFA, Battlefield e mais</p>
-        <div class="product-price-block">
+      <div class="product-card">
+        <a href="assinaturas.html" style="display:block;">
+          <div class="product-img-wrap">
+            <div class="product-img-placeholder">EA Play 1 Mês</div>
+            <span class="product-discount-badge">-34%</span>
+          </div>
+        </a>
+        <div class="product-info">
+          <a href="assinaturas.html" class="product-name">EA Play · 1 Mês</a>
+          <span class="product-sku">FIFA, Battlefield, Apex e mais</span>
           <p class="product-old-price">R$ 29,90</p>
           <p class="product-price">R$ 19,90</p>
           <p class="product-pix">💰 R$ 18,91 no Pix</p>
+          <p class="product-installment">ou 12x de R$ 1,96 sem juros</p>
         </div>
-        <div class="product-buy-row">
-          <button class="buy-btn">Comprar Agora</button>
-        </div>
+        <button class="product-add-btn">Adicionar ao Carrinho</button>
       </div>
-    </div>
 
-    <div class="product-card">
-      <div class="product-image">
-        <img src="" alt="Game Pass PC 3 Meses" />
-        <span class="product-platform-badge">Xbox / PC</span>
-        <span class="product-discount-badge">-15%</span>
-      </div>
-      <div class="product-body">
-        <span class="product-category">Assinatura</span>
-        <p class="product-name">Game Pass PC 3 Meses</p>
-        <p class="product-sub">3 Meses · Acesso ilimitado no PC</p>
-        <div class="product-price-block">
+      <div class="product-card">
+        <a href="assinaturas.html" style="display:block;">
+          <div class="product-img-wrap">
+            <div class="product-img-placeholder">Game Pass PC 3 Meses</div>
+            <span class="product-discount-badge">-13%</span>
+          </div>
+        </a>
+        <div class="product-info">
+          <a href="assinaturas.html" class="product-name">Game Pass PC · 3 Meses</a>
+          <span class="product-sku">Acesso ilimitado no PC</span>
           <p class="product-old-price">R$ 74,90</p>
           <p class="product-price">R$ 64,90</p>
           <p class="product-pix">💰 R$ 61,66 no Pix</p>
+          <p class="product-installment">ou 12x de R$ 6,39 sem juros</p>
         </div>
-        <div class="product-buy-row">
-          <button class="buy-btn">Comprar Agora</button>
-        </div>
+        <button class="product-add-btn">Adicionar ao Carrinho</button>
       </div>
-    </div>
 
-    <div class="product-card">
-      <div class="product-image">
-        <img src="" alt="Game Pass Compartilhado" />
-        <span class="product-platform-badge">Xbox</span>
-        <span class="product-discount-badge">-40%</span>
-      </div>
-      <div class="product-body">
-        <span class="product-category">Digital Media</span>
-        <p class="product-name">Game Pass Ultimate Compartilhado</p>
-        <p class="product-sub">1 Mês · Mesmo benefício, menor preço</p>
-        <div class="product-price-block">
+      <div class="product-card">
+        <a href="assinaturas.html" style="display:block;">
+          <div class="product-img-wrap">
+            <div class="product-img-placeholder">Game Pass Ultimate Compartilhado</div>
+            <span class="product-discount-badge">-40%</span>
+          </div>
+        </a>
+        <div class="product-info">
+          <a href="assinaturas.html" class="product-name">Game Pass Ultimate Compartilhado · 1 Mês</a>
+          <span class="product-sku">Mesmos benefícios, menor preço</span>
           <p class="product-old-price">R$ 24,90</p>
           <p class="product-price">R$ 14,90</p>
           <p class="product-pix">💰 R$ 14,16 no Pix</p>
+          <p class="product-installment">ou 12x de R$ 1,46 sem juros</p>
         </div>
-        <div class="product-buy-row">
-          <button class="buy-btn">Comprar Agora</button>
-        </div>
+        <button class="product-add-btn">Adicionar ao Carrinho</button>
       </div>
+
     </div>
-
-  </div>
-</section>
-
-<!-- ── GIFT CARDS ── -->
-<section class="section-wrap" id="gift-cards">
-  <div class="section-header">
-    <div>
-      <h2 class="section-title">Gift Cards</h2>
-      <p class="section-sub">Presente perfeito para qualquer gamer — entrega imediata por e-mail</p>
-    </div>
-    <a href="gift-cards.html"><button class="btn-outline">Ver todos →</button></a>
-  </div>
-
-  <div class="gift-grid">
-    <a href="gift-cards.html" class="gift-card">
-      <div class="gift-icon" style="background:#e8f5e9;">🟢</div>
-      <span class="gift-name">Xbox</span>
-      <span class="gift-from">A partir de</span>
-      <span class="gift-price">R$ 25,00</span>
-    </a>
-    <a href="gift-cards.html" class="gift-card">
-      <div class="gift-icon" style="background:#e8eaf6;">🔵</div>
-      <span class="gift-name">PlayStation</span>
-      <span class="gift-from">A partir de</span>
-      <span class="gift-price">R$ 30,00</span>
-    </a>
-    <a href="gift-cards.html" class="gift-card">
-      <div class="gift-icon" style="background:#fce4ec;">🔴</div>
-      <span class="gift-name">Roblox</span>
-      <span class="gift-from">A partir de</span>
-      <span class="gift-price">R$ 15,00</span>
-    </a>
-    <a href="gift-cards.html" class="gift-card">
-      <div class="gift-icon" style="background:#fce4ec;">❤️</div>
-      <span class="gift-name">Nintendo</span>
-      <span class="gift-from">A partir de</span>
-      <span class="gift-price">R$ 60,00</span>
-    </a>
-    <a href="gift-cards.html" class="gift-card">
-      <div class="gift-icon" style="background:#e8f5e9;">▶️</div>
-      <span class="gift-name">Google Play</span>
-      <span class="gift-from">A partir de</span>
-      <span class="gift-price">R$ 15,00</span>
-    </a>
-    <a href="gift-cards.html" class="gift-card">
-      <div class="gift-icon" style="background:#212121; border-radius:10px;">🚗</div>
-      <span class="gift-name">Uber</span>
-      <span class="gift-from">A partir de</span>
-      <span class="gift-price">R$ 50,00</span>
-    </a>
-  </div>
-</section>
-
-<!-- ── STATS ── -->
-<div class="stats-bar">
-  <div class="stat-item">
-    <span class="stat-value">+10k</span>
-    <span class="stat-label">Clientes Satisfeitos</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-value">98%</span>
-    <span class="stat-label">Avaliações Positivas</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-value">&lt; 1 min</span>
-    <span class="stat-label">Tempo de Entrega</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-value">24/7</span>
-    <span class="stat-label">Suporte WhatsApp</span>
   </div>
 </div>
 
-<!-- ── DEPOIMENTOS ── -->
-<section class="section-wrap section-alt">
-  <div class="section-header" style="justify-content:center;flex-direction:column;align-items:center;text-align:center;">
-    <h2 class="section-title" style="border-left:none;padding-left:0;text-align:center;">O que nossos clientes dizem</h2>
+<!-- GIFT CARDS -->
+<div style="background:#fff;padding:20px 20px 28px;border-top:1px solid #ddd;">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-hd">
+      <h2>Gift Cards</h2>
+      <a href="gift-cards.html">Ver todos os gift cards →</a>
+    </div>
+    <div class="gift-grid">
+      <a href="gift-cards.html" class="gift-card">
+        <div class="gift-icon-wrap" style="background:#e8f5e9;">🟢</div>
+        <span class="gift-name">Xbox</span>
+        <span class="gift-from">A partir de</span>
+        <span class="gift-price">R$ 25,00</span>
+      </a>
+      <a href="gift-cards.html" class="gift-card">
+        <div class="gift-icon-wrap" style="background:#e8eaf6;">🔵</div>
+        <span class="gift-name">PlayStation</span>
+        <span class="gift-from">A partir de</span>
+        <span class="gift-price">R$ 30,00</span>
+      </a>
+      <a href="gift-cards.html" class="gift-card">
+        <div class="gift-icon-wrap" style="background:#fce4ec;">🔴</div>
+        <span class="gift-name">Roblox</span>
+        <span class="gift-from">A partir de</span>
+        <span class="gift-price">R$ 15,00</span>
+      </a>
+      <a href="gift-cards.html" class="gift-card">
+        <div class="gift-icon-wrap" style="background:#fce4ec;">❤️</div>
+        <span class="gift-name">Nintendo</span>
+        <span class="gift-from">A partir de</span>
+        <span class="gift-price">R$ 60,00</span>
+      </a>
+      <a href="gift-cards.html" class="gift-card">
+        <div class="gift-icon-wrap" style="background:#e8f5e9;">▶️</div>
+        <span class="gift-name">Google Play</span>
+        <span class="gift-from">A partir de</span>
+        <span class="gift-price">R$ 15,00</span>
+      </a>
+      <a href="gift-cards.html" class="gift-card">
+        <div class="gift-icon-wrap" style="background:#212121;border-radius:6px;">🚗</div>
+        <span class="gift-name">Uber</span>
+        <span class="gift-from">A partir de</span>
+        <span class="gift-price">R$ 50,00</span>
+      </a>
+    </div>
   </div>
-  <div class="testimonials-grid">
-    <div class="testimonial-card">
-      <div class="testimonial-stars">★★★★★</div>
-      <p class="testimonial-text">"Comprei o Game Pass Ultimate e recebi o código em menos de 2 minutos. Atendimento incrível, comprarei sempre aqui!"</p>
-      <div class="testimonial-author">
-        <div class="author-avatar">👨</div>
-        <div><p class="author-name">Lucas Ferreira</p><p class="author-role">Xbox Player · São Paulo</p></div>
-      </div>
-    </div>
-    <div class="testimonial-card">
-      <div class="testimonial-stars">★★★★★</div>
-      <p class="testimonial-text">"Melhor loja de gift cards! Preço justo, entrega instantânea e suporte 24h no WhatsApp. Super recomendo!"</p>
-      <div class="testimonial-author">
-        <div class="author-avatar">👩</div>
-        <div><p class="author-name">Ana Carolina</p><p class="author-role">PS Gamer · Fortaleza</p></div>
-      </div>
-    </div>
-    <div class="testimonial-card">
-      <div class="testimonial-stars">★★★★★</div>
-      <p class="testimonial-text">"Compro aqui há mais de 1 ano. Nunca tive problema. Site confiável com os melhores preços do mercado."</p>
-      <div class="testimonial-author">
-        <div class="author-avatar">🎮</div>
-        <div><p class="author-name">Rafael Santos</p><p class="author-role">Streamer · YouTube & Twitch</p></div>
-      </div>
-    </div>
-  </div>
-</section>
+</div>
 
-<!-- ── PAYMENT BAR ── -->
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stat-item"><span class="stat-value">+10k</span><span class="stat-label">Clientes Satisfeitos</span></div>
+  <div class="stat-item"><span class="stat-value">98%</span><span class="stat-label">Avaliações Positivas</span></div>
+  <div class="stat-item"><span class="stat-value">&lt;1min</span><span class="stat-label">Tempo de Entrega</span></div>
+  <div class="stat-item"><span class="stat-value">24/7</span><span class="stat-label">Suporte WhatsApp</span></div>
+</div>
+
+<!-- DEPOIMENTOS -->
+<div style="background:#f0f0f0;padding:20px 20px 28px;">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-hd">
+      <h2>Avaliações de Clientes</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Comprei o Game Pass Ultimate e recebi o código em menos de 2 minutos. Atendimento incrível, comprarei sempre aqui!"</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">👨</div>
+          <div><p class="author-name">Lucas Ferreira</p><p class="author-role">Xbox Player · São Paulo</p></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Melhor loja de gift cards! Preço justo, entrega instantânea e suporte 24h no WhatsApp. Super recomendo!"</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">👩</div>
+          <div><p class="author-name">Ana Carolina</p><p class="author-role">PS Gamer · Fortaleza</p></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Compro aqui há mais de 1 ano. Nunca tive problema. Site confiável com os melhores preços do mercado."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">🎮</div>
+          <div><p class="author-name">Rafael Santos</p><p class="author-role">Streamer · YouTube & Twitch</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAYMENT BAR -->
 <div class="payment-bar">
   <span class="payment-label">💳 Formas de pagamento:</span>
   <div class="payment-icons">
     <span class="payment-chip">💳 Cartão de Crédito</span>
-    <span class="payment-chip">⚡ Pix (instantâneo)</span>
+    <span class="payment-chip">⚡ Pix</span>
     <span class="payment-chip">📄 Boleto</span>
-    <span class="payment-chip">🔢 Parcelamento 12x</span>
-    <span class="payment-chip">🔒 100% Seguro</span>
+    <span class="payment-chip">🔢 12x sem juros</span>
+    <span class="payment-chip">🔒 SSL Seguro</span>
   </div>
 </div>
 
-<!-- ── FOOTER ── -->
+<!-- FOOTER -->
 <footer class="footer">
   <div class="footer-grid">
     <div>
       <div class="nav-logo">
-        <div class="nav-logo-mark footer-logo-mark">ATM</div>
-        <span class="nav-logo-text footer-logo-text">ATM GAMES</span>
+        <div class="nav-logo-mark">ATM</div>
+        <span class="nav-logo-text" style="color:#fff;">ATM GAMES</span>
       </div>
       <p class="footer-brand-text">Sua loja de confiança para assinaturas digitais e gift cards. Entrega instantânea, preços justos e suporte dedicado.</p>
       <div class="footer-social">
-        <a href="#" class="social-btn"><i data-lucide="instagram" style="width:15px;height:15px;"></i></a>
-        <a href="#" class="social-btn"><i data-lucide="youtube" style="width:15px;height:15px;"></i></a>
-        <a href="#" class="social-btn"><i data-lucide="facebook" style="width:15px;height:15px;"></i></a>
-        <a href="#" class="social-btn"><i data-lucide="music" style="width:15px;height:15px;"></i></a>
+        <a href="#" class="social-btn">📸</a>
+        <a href="#" class="social-btn">▶️</a>
+        <a href="#" class="social-btn">👍</a>
       </div>
     </div>
     <div>
@@ -793,29 +489,16 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <p class="footer-bottom-text">© 2024 <span>ATM Games</span>. Todos os direitos reservados. Fortaleza, CE.</p>
-    <p class="footer-bottom-text">Feito com ❤️ para gamers</p>
+    <p class="footer-bottom-text">© 2024 ATM Games. Todos os direitos reservados. Fortaleza, CE.</p>
+    <p class="footer-bottom-text">Feito com ❤️ para gamers brasileiros</p>
   </div>
 </footer>
 
 <!-- WhatsApp FAB -->
-<a href="#" class="whatsapp-fab" title="Falar no WhatsApp">
-  <i data-lucide="message-circle" style="width:24px;height:24px;"></i>
-</a>
+<a href="#" class="whatsapp-fab" title="Falar no WhatsApp">💬</a>
 
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script>
-  lucide.createIcons();
-
-  // Filter pills
-  document.querySelectorAll('.pill').forEach(pill => {
-    pill.addEventListener('click', () => {
-      document.querySelectorAll('.pill').forEach(p => p.className = 'pill pill-inactive');
-      pill.className = 'pill pill-active';
-    });
-  });
-
-  // Hamburger menu
+  // Hamburger
   (function() {
     var btn = document.getElementById('navHamburger');
     var menu = document.getElementById('navMobile');
@@ -833,6 +516,14 @@
       });
     });
   })();
+
+  // Filter pills
+  document.querySelectorAll('.pill').forEach(function(pill) {
+    pill.addEventListener('click', function() {
+      document.querySelectorAll('.pill').forEach(function(p) { p.className = 'pill pill-inactive'; });
+      pill.className = 'pill pill-active';
+    });
+  });
 </script>
 </body>
 </html>
