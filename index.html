@@ -9,242 +9,243 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="shared.css" />
   <style>
-    /* ── HERO ── */
-    .hero {
+
+    /* ── HERO BANNER ── */
+    .hero-banner {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d1a1a 100%);
+      padding: 0 40px;
       display: grid;
-      grid-template-columns: 1fr 380px;
-      gap: 24px;
-      padding: 48px 80px 56px;
-      background: #fff;
-      border-bottom: 1px solid var(--border);
-      overflow: hidden;
-      width: 100%;
-    }
-    .hero-main {
-      background: linear-gradient(135deg, #0D1B2A 0%, #1B3A4B 100%);
-      border-radius: var(--r-2xl);
-      padding: 52px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+      grid-template-columns: 1fr 340px;
+      gap: 0;
+      min-height: 300px;
       position: relative;
       overflow: hidden;
-      min-height: 380px;
+      align-items: center;
     }
-    .hero-main-img {
-      position: absolute;
-      inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      opacity: 0.35;
-      mix-blend-mode: luminosity;
+    .hero-banner::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(232,0,28,0.15), transparent 60%);
+      pointer-events: none;
     }
-    .hero-main-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(120deg, rgba(13,27,42,0.92) 45%, rgba(13,27,42,0.3) 100%);
+    .hero-content {
+      padding: 48px 0;
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; gap: 16px;
     }
-    .hero-main-content { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 18px; }
-    .hero-badge {
+    .hero-tag {
       display: inline-flex; align-items: center; gap: 6px;
-      padding: 6px 14px; border-radius: 100px;
-      font-size: 11px; font-weight: 700; letter-spacing: 2px;
-      background: rgba(0,184,90,0.2); color: #00E57A; width: fit-content;
-      border: 1px solid rgba(0,229,122,0.3);
+      background: var(--red); color: #fff;
+      font-size: 11px; font-weight: 800; letter-spacing: 2px;
+      padding: 5px 12px; border-radius: var(--r-xs); width: fit-content;
     }
-    .hero-title { font-size: 46px; font-weight: 900; line-height: 1.1; color: #fff; }
-    .hero-title span { color: #00E57A; }
-    .hero-sub { font-size: 15px; color: rgba(255,255,255,0.65); line-height: 1.65; max-width: 440px; }
-    .hero-price-block small { display: block; font-size: 12px; color: rgba(255,255,255,0.5); margin-bottom: 2px; }
-    .hero-price-block strong { font-size: 36px; font-weight: 900; color: #00E57A; line-height: 1; }
-    .hero-cta-row { display: flex; align-items: center; gap: 16px; }
-    .hero-cta {
+    .hero-title { font-size: 42px; font-weight: 900; color: #fff; line-height: 1.1; }
+    .hero-title span { color: var(--red); }
+    .hero-sub { font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.6; max-width: 400px; }
+    .hero-price-block { display: flex; align-items: baseline; gap: 12px; }
+    .hero-old-price { font-size: 14px; color: rgba(255,255,255,.35); text-decoration: line-through; }
+    .hero-price { font-size: 40px; font-weight: 900; color: #fff; line-height: 1; }
+    .hero-price-sub { font-size: 13px; color: rgba(255,255,255,.5); }
+    .hero-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .hero-btn {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 14px 28px; border-radius: var(--r-md);
-      background: #00E57A; color: #0D1B2A; font-size: 15px; font-weight: 700;
-      border: none; cursor: pointer; transition: all .2s; font-family: 'Inter',sans-serif;
+      padding: 13px 28px; background: var(--red); color: #fff;
+      border: none; border-radius: var(--r-md); font-size: 15px; font-weight: 700;
+      cursor: pointer; transition: all .2s; font-family: 'Inter',sans-serif;
     }
-    .hero-cta:hover { background: #00ffaa; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,229,122,0.4); }
-    .hero-trust { display: flex; align-items: center; gap: 14px; }
-    .hero-trust-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: rgba(255,255,255,.5); }
-    .hero-trust-item svg { color: rgba(255,255,255,.4); }
+    .hero-btn:hover { background: #c40018; transform: translateY(-1px); }
+    .hero-link { font-size: 13px; color: rgba(255,255,255,.5); font-weight: 500; transition: color .2s; }
+    .hero-link:hover { color: #fff; }
+    .hero-trust { display: flex; gap: 20px; flex-wrap: wrap; }
+    .hero-trust-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: rgba(255,255,255,.45); }
 
-    /* ── HERO SIDE ── */
-    .hero-side { display: flex; flex-direction: column; gap: 12px; justify-content: flex-start; align-self: start; }
-    .side-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r-lg);
-      padding: 0;
-      overflow: hidden;
-      display: flex;
-      transition: all .22s;
-      cursor: pointer;
-      box-shadow: var(--shadow-sm);
-      height: 80px;
+    /* Hero side products */
+    .hero-side {
+      display: flex; flex-direction: column;
+      background: rgba(255,255,255,0.05);
+      border-left: 1px solid rgba(255,255,255,0.08);
+      height: 100%; min-height: 300px;
     }
-    .side-card:hover { border-color: var(--green); box-shadow: var(--shadow-md); transform: translateX(3px); }
-    .side-card-img { width: 80px; height: 80px; object-fit: cover; flex-shrink: 0; }
-    .side-card-body { padding: 14px 16px; display: flex; flex-direction: column; justify-content: center; gap: 4px; flex: 1; }
-    .side-card-tag { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; }
-    .side-card-name { font-size: 14px; font-weight: 700; color: var(--ink); }
-    .side-card-sub { font-size: 11px; color: var(--muted); }
-    .side-card-price { font-size: 16px; font-weight: 900; color: var(--green); padding: 14px; display: flex; align-items: center; }
-
-    /* ── SECTION DIVIDER ── */
-    .section-divider {
-      height: 1px; background: var(--border); margin: 0 80px;
+    .hero-side-title {
+      font-size: 10px; font-weight: 700; letter-spacing: 2px; color: rgba(255,255,255,.3);
+      padding: 14px 18px 10px; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.06);
     }
+    .hero-side-card {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 18px; border-bottom: 1px solid rgba(255,255,255,0.06);
+      cursor: pointer; transition: background .15s;
+    }
+    .hero-side-card:hover { background: rgba(255,255,255,0.06); }
+    .hero-side-icon {
+      width: 40px; height: 40px; border-radius: var(--r-sm); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .hero-side-info { flex: 1; min-width: 0; }
+    .hero-side-name { font-size: 13px; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .hero-side-sub { font-size: 11px; color: rgba(255,255,255,.4); margin-top: 1px; }
+    .hero-side-price { font-size: 14px; font-weight: 900; color: var(--red); flex-shrink: 0; }
 
-    /* ── FEATURES STRIP ── */
-    .features-strip {
-      background: var(--surface);
+    /* ── QUICK CATEGORIES ── */
+    .quick-cats {
+      background: #fff;
       border-bottom: 1px solid var(--border);
-      padding: 0 80px;
+      padding: 20px 40px;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+    }
+    .quick-cat {
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      padding: 16px 8px; border-radius: var(--r-lg); border: 1.5px solid var(--border);
+      cursor: pointer; transition: all .2s; background: #fff; text-align: center;
+    }
+    .quick-cat:hover { border-color: var(--red); background: var(--red-light); }
+    .quick-cat:hover .quick-cat-name { color: var(--red); }
+    .quick-cat-icon {
+      width: 48px; height: 48px; border-radius: var(--r-md);
+      display: flex; align-items: center; justify-content: center; font-size: 24px;
+    }
+    .quick-cat-name { font-size: 12px; font-weight: 700; color: var(--ink-2); }
+
+    /* ── TRUST BAR ── */
+    .trust-bar {
+      background: var(--ink);
+      padding: 0 40px;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
     }
-    .feature-item {
-      display: flex; align-items: center; gap: 14px;
-      padding: 20px 20px;
-      border-right: 1px solid var(--border);
+    .trust-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 16px 20px;
+      border-right: 1px solid rgba(255,255,255,.06);
     }
-    .feature-item:last-child { border-right: none; }
-    .feature-icon-box {
-      width: 42px; height: 42px; border-radius: var(--r-sm);
-      background: var(--green-light); display: flex; align-items: center; justify-content: center;
-      color: var(--green); flex-shrink: 0;
-    }
-    .feature-label { font-size: 13px; font-weight: 700; color: var(--ink); }
-    .feature-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+    .trust-item:last-child { border-right: none; }
+    .trust-icon { font-size: 22px; flex-shrink: 0; }
+    .trust-label { font-size: 13px; font-weight: 700; color: #fff; }
+    .trust-sub { font-size: 11px; color: rgba(255,255,255,.4); margin-top: 1px; }
 
-    /* ── PROMO BANNER ── */
-    .promo-banner {
-      margin: 0 80px;
-      border-radius: var(--r-xl);
-      background: linear-gradient(120deg, #0D1B2A 0%, #1B3A2A 100%);
-      padding: 36px 48px;
-      display: flex; align-items: center; justify-content: space-between; gap: 32px;
-      overflow: hidden; position: relative;
+    /* ── PROMO STRIP ── */
+    .promo-strip {
+      background: var(--red);
+      padding: 14px 40px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
     }
-    .promo-banner::before {
-      content: ''; position: absolute; right: -40px; top: -40px;
-      width: 200px; height: 200px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(0,229,122,0.15), transparent 70%);
+    .promo-strip-left { display: flex; align-items: center; gap: 16px; }
+    .promo-strip-badge {
+      background: #fff; color: var(--red);
+      font-size: 11px; font-weight: 900; padding: 4px 10px; border-radius: var(--r-xs);
+      letter-spacing: 1px; white-space: nowrap;
     }
-    .promo-content { position: relative; }
-    .promo-tag { font-size: 11px; font-weight: 700; letter-spacing: 3px; color: #00E57A; margin-bottom: 8px; }
-    .promo-title { font-size: 24px; font-weight: 900; color: #fff; margin-bottom: 6px; }
-    .promo-sub { font-size: 14px; color: rgba(255,255,255,.55); }
-    .promo-cta {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 12px 24px; background: #00E57A; color: #0D1B2A;
-      border-radius: var(--r-md); font-size: 14px; font-weight: 700;
-      border: none; cursor: pointer; transition: all .2s; white-space: nowrap;
-      font-family: 'Inter', sans-serif; position: relative;
+    .promo-strip-text { font-size: 15px; font-weight: 700; color: #fff; }
+    .promo-strip-sub { font-size: 13px; color: rgba(255,255,255,.75); }
+    .promo-strip-price { font-size: 28px; font-weight: 900; color: #fff; white-space: nowrap; }
+    .promo-strip-btn {
+      padding: 10px 22px; background: #fff; color: var(--red);
+      border: none; border-radius: var(--r-md); font-size: 13px; font-weight: 800;
+      cursor: pointer; transition: all .15s; white-space: nowrap; font-family: 'Inter', sans-serif;
     }
-    .promo-cta:hover { background: #00ffaa; transform: translateY(-1px); }
+    .promo-strip-btn:hover { background: var(--red-light); }
 
-    /* ── TESTIMONIALS ── */
-    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .testimonial-card {
-      background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg);
-      padding: 28px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 14px;
-    }
-    .testimonial-stars { display: flex; gap: 3px; color: var(--yellow); }
-    .testimonial-text { font-size: 14px; color: var(--muted); line-height: 1.7; font-style: italic; flex: 1; }
-    .testimonial-author { display: flex; align-items: center; gap: 12px; padding-top: 14px; border-top: 1px solid var(--border); }
-    .author-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; flex-shrink: 0; background: var(--surface-2); display:flex;align-items:center;justify-content:center;font-size:18px; }
-    .author-name { font-size: 14px; font-weight: 700; color: var(--ink); }
-    .author-role { font-size: 12px; color: var(--muted); }
+    /* ── SECTIONS ── */
+    .section-wrap { padding: 32px 40px; }
 
     /* ── GIFT GRID ── */
-    .gift-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+    .gift-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
     .gift-card {
-      background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg);
-      padding: 20px 12px; display: flex; flex-direction: column; align-items: center; gap: 10px;
-      cursor: pointer; transition: all .22s; text-align: center; box-shadow: var(--shadow-sm);
+      background: #fff; border: 1.5px solid var(--border); border-radius: var(--r-lg);
+      padding: 18px 10px; display: flex; flex-direction: column; align-items: center; gap: 8px;
+      cursor: pointer; transition: all .2s; text-align: center;
     }
-    .gift-card:hover { border-color: var(--green); transform: translateY(-3px); box-shadow: var(--shadow-md); }
-    .gift-icon { width: 52px; height: 52px; border-radius: var(--r-md); object-fit: cover; }
+    .gift-card:hover { border-color: var(--red); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .gift-card:hover .gift-name { color: var(--red); }
+    .gift-icon {
+      width: 52px; height: 52px; border-radius: var(--r-md); object-fit: cover;
+      display: flex; align-items: center; justify-content: center; font-size: 28px;
+    }
     .gift-name { font-size: 13px; font-weight: 700; color: var(--ink); }
     .gift-from { font-size: 10px; color: var(--muted); }
-    .gift-price { font-size: 14px; font-weight: 800; color: var(--green); }
+    .gift-price { font-size: 14px; font-weight: 900; color: var(--red); }
 
     /* ── PAYMENT BAR ── */
     .payment-bar {
-      background: var(--surface-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-      padding: 20px 80px; display: flex; align-items: center; justify-content: space-between; gap: 24px;
+      background: #fff; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; gap: 20px;
     }
-    .payment-label { font-size: 13px; font-weight: 600; color: var(--muted); white-space: nowrap; display:flex;align-items:center;gap:8px; }
-    .payment-icons { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .payment-label { font-size: 13px; font-weight: 700; color: var(--ink-2); white-space: nowrap; }
+    .payment-icons { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
     .payment-chip {
-      display: flex; align-items: center; gap: 6px;
-      padding: 6px 14px; background: var(--surface); border: 1px solid var(--border);
+      display: flex; align-items: center; gap: 5px;
+      padding: 5px 12px; background: var(--surface-2); border: 1px solid var(--border);
       border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: var(--ink-2);
     }
 
-    /* Promo section wrapper */
-    .promo-section { padding: 40px 0; }
-
-    @media (max-width:1200px) {
-      .hero { grid-template-columns: 1fr; padding: 40px; }
-      .hero-side { flex-direction: row; flex-wrap: wrap; }
-      .side-card { flex: 1 1 calc(50% - 7px); height: 80px; }
-      .features-strip { padding: 0 40px; grid-template-columns: repeat(2,1fr); }
-      .promo-banner { margin: 0 40px; }
-      .gift-grid { grid-template-columns: repeat(3,1fr); }
-      .testimonials-grid { grid-template-columns: 1fr; }
-      .payment-bar { padding: 16px 40px; flex-direction: column; align-items: flex-start; }
-      .promo-section { padding: 32px 0; }
+    /* ── TESTIMONIALS ── */
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .testimonial-card {
+      background: #fff; border: 1px solid var(--border); border-radius: var(--r-lg);
+      padding: 24px; display: flex; flex-direction: column; gap: 12px;
     }
-    @media (max-width:900px) {
-      .gift-grid { grid-template-columns: repeat(3,1fr); }
+    .testimonial-stars { display: flex; gap: 2px; color: var(--yellow); font-size: 14px; }
+    .testimonial-text { font-size: 14px; color: var(--muted); line-height: 1.65; flex: 1; }
+    .testimonial-author { display: flex; align-items: center; gap: 10px; padding-top: 12px; border-top: 1px solid var(--border); }
+    .author-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--surface-2); display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0; }
+    .author-name { font-size: 13px; font-weight: 700; color: var(--ink); }
+    .author-role { font-size: 11px; color: var(--muted); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1200px) {
+      .hero-banner { grid-template-columns: 1fr; padding: 0 24px; }
+      .hero-side { display: none; }
+      .quick-cats { grid-template-columns: repeat(3, 1fr); padding: 16px 24px; }
+      .trust-bar { grid-template-columns: repeat(2, 1fr); padding: 0 24px; }
+      .trust-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,.06); }
+      .trust-item:nth-child(2n) { border-right: none; }
+      .gift-grid { grid-template-columns: repeat(3, 1fr); }
+      .promo-strip { padding: 14px 24px; flex-direction: column; align-items: flex-start; gap: 10px; }
+      .promo-strip-price { font-size: 22px; }
+      .section-wrap { padding: 28px 24px; }
+      .payment-bar { padding: 14px 24px; flex-direction: column; align-items: flex-start; }
+      .testimonials-grid { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; padding: 24px 24px 32px; gap: 16px; }
-      .hero-main { min-height: 260px; padding: 32px; }
-      .hero-title { font-size: 32px; }
-      .hero-sub { font-size: 14px; }
-      .hero-price-block strong { font-size: 28px; }
-      .hero-cta { padding: 12px 22px; font-size: 14px; }
-      .hero-side { flex-direction: row; flex-wrap: wrap; align-self: auto; }
-      .side-card { flex: 0 0 calc(50% - 6px); height: 80px; }
-      .features-strip { grid-template-columns: 1fr 1fr; padding: 0 24px; }
-      .feature-item { padding: 16px 12px; gap: 10px; border-right: none; border-bottom: 1px solid var(--border); }
-      .feature-item:nth-child(odd) { border-right: 1px solid var(--border); }
-      .feature-item:nth-last-child(-n+2) { border-bottom: none; }
-      .promo-banner { margin: 0 24px; padding: 24px; flex-direction: column; gap: 16px; text-align: center; }
-      .promo-title { font-size: 18px; }
+      .hero-banner { padding: 0 20px; min-height: 240px; }
+      .hero-title { font-size: 30px; }
+      .hero-content { padding: 32px 0; }
+      .quick-cats { padding: 14px 20px; gap: 10px; }
+      .trust-bar { padding: 0 20px; }
       .gift-grid { grid-template-columns: repeat(3, 1fr); }
-      .testimonials-grid { grid-template-columns: 1fr; }
-      .payment-bar { padding: 16px 24px; flex-direction: column; align-items: flex-start; gap: 12px; }
-      .payment-icons { flex-wrap: wrap; gap: 8px; }
-      .promo-section { padding: 24px 0; }
+      .promo-strip { padding: 12px 20px; }
+      .section-wrap { padding: 24px 20px; }
+      .payment-bar { padding: 12px 20px; }
     }
+
     @media (max-width: 600px) {
-      .hero { padding: 16px 16px 24px; }
-      .hero-side { flex-direction: column; }
-      .side-card { flex: 0 0 auto; height: 72px; width: 100%; }
-      .hero-main { padding: 24px; min-height: 220px; }
-      .hero-title { font-size: 26px; }
-      .hero-cta-row { flex-direction: column; align-items: flex-start; gap: 10px; }
-      .hero-trust { flex-wrap: wrap; gap: 8px; }
-      .features-strip { grid-template-columns: 1fr 1fr; padding: 0 16px; }
-      .promo-banner { margin: 0 16px; padding: 20px 16px; flex-direction: column; gap: 12px; }
-      .promo-title { font-size: 16px; }
-      .promo-banner > div:last-child { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+      .hero-banner { padding: 0 14px; }
+      .hero-title { font-size: 24px; }
+      .hero-content { padding: 24px 0; gap: 12px; }
+      .hero-price { font-size: 30px; }
+      .hero-btn { padding: 11px 20px; font-size: 14px; }
+      .quick-cats { grid-template-columns: repeat(3, 1fr); padding: 12px 14px; gap: 8px; }
+      .quick-cat { padding: 12px 4px; }
+      .quick-cat-icon { width: 40px; height: 40px; font-size: 20px; }
+      .trust-bar { grid-template-columns: 1fr 1fr; padding: 0 14px; }
       .gift-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-      .gift-card { padding: 14px 8px; }
-      .gift-name { font-size: 11px; }
-      .payment-bar { padding: 14px 16px; }
-      .promo-section { padding: 16px 0; }
-      .testimonial-card { padding: 20px; }
+      .promo-strip { padding: 12px 14px; }
+      .promo-strip-text { font-size: 14px; }
+      .section-wrap { padding: 20px 14px; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .payment-bar { padding: 12px 14px; }
     }
   </style>
 </head>
 <body>
+
+<!-- ── ANNOUNCE BAR ── -->
+<div class="announce-bar">
+  🔥 FRETE GRÁTIS em todos os pedidos · Entrega imediata por e-mail · Suporte 24/7 no WhatsApp
+</div>
 
 <!-- ── NAVBAR ── -->
 <nav class="navbar">
@@ -252,167 +253,200 @@
     <div class="nav-logo-mark">ATM</div>
     <span class="nav-logo-text">ATM GAMES</span>
   </a>
-  <ul class="nav-links">
-    <li><a href="index.html" class="nav-active">Início</a></li>
-    <li><a href="assinaturas.html">Assinaturas</a></li>
-    <li><a href="jogos.html">Jogos</a></li>
-    <li><a href="gift-cards.html">Gift Cards</a></li>
-    <li><a href="meus-pedidos.html">Meus Pedidos</a></li>
-    <li><a href="contato.html">Contato</a></li>
-  </ul>
+
+  <div class="nav-search">
+    <input type="text" placeholder="Buscar assinatura, gift card..." />
+    <button class="nav-search-btn">
+      <i data-lucide="search" style="width:16px;height:16px;"></i>
+    </button>
+  </div>
+
   <div class="nav-actions">
-    <button class="btn btn-ghost" style="gap:6px;">
+    <button class="nav-account-btn">
       <i data-lucide="user" style="width:15px;height:15px;"></i> Entrar
     </button>
-    <button class="btn btn-primary" style="gap:6px;">
+    <button class="nav-cart-btn">
       <i data-lucide="shopping-cart" style="width:15px;height:15px;"></i> Carrinho
       <span class="nav-cart-count">2</span>
     </button>
-  
-  <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-</div>
-
-<div class="nav-mobile" id="navMobile">
-  <a href="index.html" class="nav-active">Início</a>
-  <a href="assinaturas.html">Assinaturas</a>
-  <a href="jogos.html">Jogos</a>
-  <a href="gift-cards.html">Gift Cards</a>
-  <a href="meus-pedidos.html">Meus Pedidos</a>
-  <a href="contato.html">Contato</a>
-<div class="nav-mobile-divider"></div>
-  <div class="nav-mobile-actions">
-    <button class="btn btn-ghost">Entrar</button>
-    <button class="btn btn-primary">🛒 Carrinho</button>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
-</div>
 </nav>
 
-<!-- ── HERO ── -->
-<section class="hero">
-  <div class="hero-main">
-    <img class="hero-main-img" src="" alt="Gaming" />
-    <div class="hero-main-overlay"></div>
-    <div class="hero-main-content">
-      <span class="hero-badge">
-        <i data-lucide="zap" style="width:12px;height:12px;"></i> DESTAQUE DO MÊS
-      </span>
-      <h1 class="hero-title">Xbox Game Pass<br><span>Ultimate</span></h1>
-      <p class="hero-sub">Mais de 100 jogos premium, Xbox Live Gold e EA Play inclusos. Entrega digital em segundos.</p>
-      <div class="hero-price-block">
-        <small>A partir de</small>
-        <strong>R$ 44,90</strong>
+<!-- ── CATEGORY BAR ── -->
+<nav class="category-bar">
+  <a href="index.html" class="cat-active">🏠 Início</a>
+  <a href="assinaturas.html">🎮 Xbox Game Pass</a>
+  <a href="assinaturas.html">🎮 PlayStation Plus</a>
+  <a href="assinaturas.html">☁️ Cloud Gaming</a>
+  <a href="gift-cards.html">🎁 Gift Cards</a>
+  <a href="jogos.html">🕹️ Jogos</a>
+  <a href="contato.html">📞 Contato</a>
+  <a href="assinaturas.html" class="category-bar-highlight">⚡ Ofertas</a>
+</nav>
+
+<!-- Mobile nav drawer -->
+<div class="nav-mobile" id="navMobile">
+  <a href="index.html" class="nav-active">🏠 Início</a>
+  <a href="assinaturas.html">🎮 Assinaturas</a>
+  <a href="jogos.html">🕹️ Jogos</a>
+  <a href="gift-cards.html">🎁 Gift Cards</a>
+  <a href="meus-pedidos.html">📦 Meus Pedidos</a>
+  <a href="contato.html">📞 Contato</a>
+  <div class="nav-mobile-divider"></div>
+  <div class="nav-mobile-actions">
+    <button class="btn btn-ghost">Entrar</button>
+    <button class="btn btn-primary">🛒 Carrinho (2)</button>
+  </div>
+</div>
+
+<!-- ── HERO BANNER ── -->
+<section class="hero-banner">
+  <div class="hero-content">
+    <span class="hero-tag">
+      <i data-lucide="zap" style="width:11px;height:11px;"></i> DESTAQUE DO MÊS
+    </span>
+    <h1 class="hero-title">Xbox Game Pass<br><span>Ultimate</span></h1>
+    <p class="hero-sub">Mais de 100 jogos premium, Xbox Live Gold e EA Play inclusos. Ative hoje e jogue agora.</p>
+    <div class="hero-price-block">
+      <div>
+        <span class="hero-old-price">De R$ 59,90</span>
+        <div style="display:flex;align-items:baseline;gap:8px;">
+          <span class="hero-price">R$ 44,90</span>
+          <span class="hero-price-sub">/ mês</span>
+        </div>
+        <span style="font-size:12px;color:var(--green);font-weight:700;">ou R$ 42,66 no Pix</span>
       </div>
-      <div class="hero-cta-row">
-        <button class="hero-cta">
-          Comprar Agora <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
-        </button>
-        <a href="assinaturas.html" style="color:rgba(255,255,255,.6);font-size:13px;font-weight:500;">Ver planos →</a>
+    </div>
+    <div class="hero-actions">
+      <button class="hero-btn">
+        Comprar Agora <i data-lucide="arrow-right" style="width:15px;height:15px;"></i>
+      </button>
+      <a href="assinaturas.html" class="hero-link">Ver todos os planos →</a>
+    </div>
+    <div class="hero-trust">
+      <div class="hero-trust-item">
+        <i data-lucide="zap" style="width:12px;height:12px;"></i> Entrega imediata
       </div>
-      <div class="hero-trust">
-        <div class="hero-trust-item">
-          <i data-lucide="zap" style="width:13px;height:13px;"></i> Entrega imediata
-        </div>
-        <div class="hero-trust-item">
-          <i data-lucide="shield-check" style="width:13px;height:13px;"></i> 100% seguro
-        </div>
-        <div class="hero-trust-item">
-          <i data-lucide="star" style="width:13px;height:13px;"></i> +10k clientes
-        </div>
+      <div class="hero-trust-item">
+        <i data-lucide="shield-check" style="width:12px;height:12px;"></i> 100% seguro
+      </div>
+      <div class="hero-trust-item">
+        <i data-lucide="star" style="width:12px;height:12px;"></i> +10k clientes
       </div>
     </div>
   </div>
 
   <div class="hero-side">
-    <a href="assinaturas.html" class="side-card">
-      <img class="side-card-img" src="" alt="Game Pass PC" />
-      <div class="side-card-body">
-        <span class="side-card-tag" style="color:var(--yellow);">★ POPULAR</span>
-        <p class="side-card-name">Game Pass PC</p>
-        <p class="side-card-sub">3 meses de acesso</p>
+    <p class="hero-side-title">🔥 Mais Vendidos</p>
+    <a href="assinaturas.html" class="hero-side-card">
+      <div class="hero-side-icon" style="background:#107c10;">🎮</div>
+      <div class="hero-side-info">
+        <p class="hero-side-name">Game Pass PC</p>
+        <p class="hero-side-sub">3 meses de acesso</p>
       </div>
-      <span class="side-card-price">R$ 64,90</span>
+      <span class="hero-side-price">R$ 64,90</span>
     </a>
-    <a href="assinaturas.html" class="side-card">
-      <img class="side-card-img" src="" alt="PlayStation Plus" />
-      <div class="side-card-body">
-        <span class="side-card-tag" style="color:var(--blue);">◈ NOVO</span>
-        <p class="side-card-name">PlayStation Plus</p>
-        <p class="side-card-sub">Jogos mensais + online</p>
+    <a href="assinaturas.html" class="hero-side-card">
+      <div class="hero-side-icon" style="background:#003087;">🎮</div>
+      <div class="hero-side-info">
+        <p class="hero-side-name">PlayStation Plus</p>
+        <p class="hero-side-sub">Jogos mensais + online</p>
       </div>
-      <span class="side-card-price">R$ 34,90</span>
+      <span class="hero-side-price">R$ 34,90</span>
     </a>
-    <a href="gift-cards.html" class="side-card">
-      <img class="side-card-img" src="" alt="Xbox Gift Card" />
-      <div class="side-card-body">
-        <span class="side-card-tag" style="color:var(--green);">🎁 PRESENTE</span>
-        <p class="side-card-name">Xbox Gift Card</p>
-        <p class="side-card-sub">Saldo imediato</p>
+    <a href="gift-cards.html" class="hero-side-card">
+      <div class="hero-side-icon" style="background:#107c10;">🎁</div>
+      <div class="hero-side-info">
+        <p class="hero-side-name">Xbox Gift Card</p>
+        <p class="hero-side-sub">Saldo imediato</p>
       </div>
-      <span class="side-card-price">R$ 50,00</span>
+      <span class="hero-side-price">R$ 50,00</span>
     </a>
-    <a href="assinaturas.html" class="side-card">
-      <img class="side-card-img" src="" alt="Boosteroid" />
-      <div class="side-card-body">
-        <span class="side-card-tag" style="color:var(--purple);">☁ CLOUD</span>
-        <p class="side-card-name">Boosteroid</p>
-        <p class="side-card-sub">Cloud gaming 1 mês</p>
+    <a href="assinaturas.html" class="hero-side-card">
+      <div class="hero-side-icon" style="background:#1a1a2e;">☁️</div>
+      <div class="hero-side-info">
+        <p class="hero-side-name">Boosteroid</p>
+        <p class="hero-side-sub">Cloud gaming 1 mês</p>
       </div>
-      <span class="side-card-price">R$ 24,90</span>
+      <span class="hero-side-price">R$ 24,90</span>
     </a>
   </div>
 </section>
 
-<!-- ── FEATURES STRIP ── -->
-<div class="features-strip">
-  <div class="feature-item">
-    <div class="feature-icon-box"><i data-lucide="zap" style="width:20px;height:20px;"></i></div>
-    <div><p class="feature-label">Entrega Instantânea</p><p class="feature-sub">Código no e-mail em segundos</p></div>
+<!-- ── TRUST BAR ── -->
+<div class="trust-bar">
+  <div class="trust-item">
+    <span class="trust-icon">⚡</span>
+    <div><p class="trust-label">Entrega Instantânea</p><p class="trust-sub">Código no e-mail em segundos</p></div>
   </div>
-  <div class="feature-item">
-    <div class="feature-icon-box"><i data-lucide="shield-check" style="width:20px;height:20px;"></i></div>
-    <div><p class="feature-label">100% Seguro</p><p class="feature-sub">Pagamento criptografado</p></div>
+  <div class="trust-item">
+    <span class="trust-icon">🔒</span>
+    <div><p class="trust-label">100% Seguro</p><p class="trust-sub">Pagamento criptografado</p></div>
   </div>
-  <div class="feature-item">
-    <div class="feature-icon-box"><i data-lucide="headphones" style="width:20px;height:20px;"></i></div>
-    <div><p class="feature-label">Suporte 24/7</p><p class="feature-sub">Atendimento via WhatsApp</p></div>
+  <div class="trust-item">
+    <span class="trust-icon">💬</span>
+    <div><p class="trust-label">Suporte 24/7</p><p class="trust-sub">Atendimento via WhatsApp</p></div>
   </div>
-  <div class="feature-item">
-    <div class="feature-icon-box"><i data-lucide="refresh-ccw" style="width:20px;height:20px;"></i></div>
-    <div><p class="feature-label">Garantia de Troca</p><p class="feature-sub">Código com problema? Trocamos</p></div>
+  <div class="trust-item">
+    <span class="trust-icon">🔄</span>
+    <div><p class="trust-label">Garantia de Troca</p><p class="trust-sub">Código com problema? Trocamos</p></div>
   </div>
 </div>
 
-<!-- ── PROMO BANNER ── -->
-<section class="promo-section">
-  <div class="promo-banner">
-    <div class="promo-content">
-      <p class="promo-tag">⚡ OFERTA LIMITADA</p>
-      <h2 class="promo-title">Game Pass Ultimate 3 Meses</h2>
-      <p class="promo-sub">Economize R$ 14 comprando o trimestral. Válido só esta semana!</p>
-    </div>
-    <div style="display:flex;align-items:center;gap:24px;position:relative;">
-      <div style="text-align:right;">
-        <p style="font-size:13px;color:rgba(255,255,255,.4);text-decoration:line-through;">De R$ 134,70</p>
-        <p style="font-size:36px;font-weight:900;color:#00E57A;line-height:1;">R$ 119,90</p>
-      </div>
-      <button class="promo-cta">
-        Aproveitar <i data-lucide="arrow-right" style="width:15px;height:15px;"></i>
-      </button>
+<!-- ── QUICK CATEGORIES ── -->
+<div class="quick-cats">
+  <a href="assinaturas.html" class="quick-cat">
+    <div class="quick-cat-icon" style="background:#e8f5e9;">🎮</div>
+    <span class="quick-cat-name">Xbox Game Pass</span>
+  </a>
+  <a href="assinaturas.html" class="quick-cat">
+    <div class="quick-cat-icon" style="background:#e8eaf6;">🎮</div>
+    <span class="quick-cat-name">PlayStation Plus</span>
+  </a>
+  <a href="assinaturas.html" class="quick-cat">
+    <div class="quick-cat-icon" style="background:#fff3e0;">☁️</div>
+    <span class="quick-cat-name">Cloud Gaming</span>
+  </a>
+  <a href="gift-cards.html" class="quick-cat">
+    <div class="quick-cat-icon" style="background:#fce4ec;">🎁</div>
+    <span class="quick-cat-name">Gift Cards</span>
+  </a>
+  <a href="jogos.html" class="quick-cat">
+    <div class="quick-cat-icon" style="background:#e0f7fa;">🕹️</div>
+    <span class="quick-cat-name">Jogos PC</span>
+  </a>
+  <a href="assinaturas.html" class="quick-cat">
+    <div class="quick-cat-icon" style="background:#fce4ec;">⚡</div>
+    <span class="quick-cat-name">Ofertas</span>
+  </a>
+</div>
+
+<!-- ── PROMO STRIP ── -->
+<div class="promo-strip">
+  <div class="promo-strip-left">
+    <span class="promo-strip-badge">⚡ OFERTA</span>
+    <div>
+      <p class="promo-strip-text">Game Pass Ultimate 3 Meses — Economize R$ 14!</p>
+      <p class="promo-strip-sub">Válido só esta semana · De R$ 134,70</p>
     </div>
   </div>
-</section>
+  <div style="display:flex;align-items:center;gap:20px;">
+    <span class="promo-strip-price">R$ 119,90</span>
+    <button class="promo-strip-btn">Aproveitar →</button>
+  </div>
+</div>
 
 <!-- ── ASSINATURAS ── -->
-<section class="section section-alt" id="assinaturas">
+<section class="section-wrap section-alt" id="assinaturas">
   <div class="section-header">
     <div>
-      <p class="section-eyebrow"><i data-lucide="flame" style="width:13px;height:13px;"></i> MAIS VENDIDOS</p>
       <h2 class="section-title">Assinaturas em Destaque</h2>
       <p class="section-sub">Entrega digital imediata — ative hoje e comece a jogar agora</p>
     </div>
-    <a href="assinaturas.html"><button class="btn-outline">Ver todas <i data-lucide="arrow-right" style="width:13px;height:13px;vertical-align:middle;"></i></button></a>
+    <a href="assinaturas.html"><button class="btn-outline">Ver todas →</button></a>
   </div>
 
   <div class="filter-pills">
@@ -424,19 +458,24 @@
   </div>
 
   <div class="product-grid">
+
     <div class="product-card">
       <div class="product-image">
         <img src="" alt="Xbox Game Pass Ultimate" />
         <span class="product-platform-badge">Xbox</span>
-        <span class="product-tag-top"><span class="badge badge-yellow">MAIS VENDIDO</span></span>
+        <span class="product-discount-badge">-25%</span>
       </div>
       <div class="product-body">
-        <span class="badge badge-gray" style="font-size:9px;">ASSINATURA</span>
+        <span class="product-category">Assinatura</span>
         <p class="product-name">Xbox Game Pass Ultimate</p>
         <p class="product-sub">1 Mês · 100+ jogos · Gold + EA Play</p>
+        <div class="product-price-block">
+          <p class="product-old-price">R$ 59,90</p>
+          <p class="product-price">R$ 44,90</p>
+          <p class="product-pix">💰 R$ 42,66 no Pix</p>
+        </div>
         <div class="product-buy-row">
-          <span class="product-price">R$ 44,90</span>
-          <button class="buy-btn">Comprar</button>
+          <button class="buy-btn">Comprar Agora</button>
         </div>
       </div>
     </div>
@@ -445,15 +484,19 @@
       <div class="product-image">
         <img src="" alt="Game Pass Core" />
         <span class="product-platform-badge">Xbox</span>
-        <span class="product-tag-top"><span class="badge badge-green">ECONOMIA</span></span>
+        <span class="product-discount-badge">-18%</span>
       </div>
       <div class="product-body">
-        <span class="badge badge-gray" style="font-size:9px;">ASSINATURA</span>
-        <p class="product-name">Game Pass Core</p>
+        <span class="product-category">Assinatura</span>
+        <p class="product-name">Game Pass Core 12 Meses</p>
         <p class="product-sub">12 Meses · Melhor custo-benefício</p>
+        <div class="product-price-block">
+          <p class="product-old-price">R$ 179,90</p>
+          <p class="product-price">R$ 149,90</p>
+          <p class="product-pix">💰 R$ 142,41 no Pix</p>
+        </div>
         <div class="product-buy-row">
-          <span class="product-price">R$ 149,90</span>
-          <button class="buy-btn">Comprar</button>
+          <button class="buy-btn">Comprar Agora</button>
         </div>
       </div>
     </div>
@@ -462,15 +505,19 @@
       <div class="product-image">
         <img src="" alt="PlayStation Plus Essential" />
         <span class="product-platform-badge">PlayStation</span>
-        <span class="product-tag-top"><span class="badge badge-blue">POPULAR</span></span>
+        <span class="product-discount-badge">-22%</span>
       </div>
       <div class="product-body">
-        <span class="badge badge-gray" style="font-size:9px;">ASSINATURA</span>
+        <span class="product-category">Assinatura</span>
         <p class="product-name">PlayStation Plus Essential</p>
         <p class="product-sub">3 Meses · Jogos mensais grátis</p>
+        <div class="product-price-block">
+          <p class="product-old-price">R$ 114,90</p>
+          <p class="product-price">R$ 89,90</p>
+          <p class="product-pix">💰 R$ 85,41 no Pix</p>
+        </div>
         <div class="product-buy-row">
-          <span class="product-price">R$ 89,90</span>
-          <button class="buy-btn">Comprar</button>
+          <button class="buy-btn">Comprar Agora</button>
         </div>
       </div>
     </div>
@@ -479,15 +526,19 @@
       <div class="product-image">
         <img src="" alt="Boosteroid" />
         <span class="product-platform-badge">Cloud</span>
-        <span class="product-tag-top"><span class="badge badge-purple">NOVO</span></span>
+        <span class="product-discount-badge">-30%</span>
       </div>
       <div class="product-body">
-        <span class="badge badge-gray" style="font-size:9px;">CLOUD GAMING</span>
+        <span class="product-category">Cloud Gaming</span>
         <p class="product-name">Boosteroid Cloud Gaming</p>
         <p class="product-sub">1 Mês · Sem hardware necessário</p>
+        <div class="product-price-block">
+          <p class="product-old-price">R$ 34,90</p>
+          <p class="product-price">R$ 24,90</p>
+          <p class="product-pix">💰 R$ 23,66 no Pix</p>
+        </div>
         <div class="product-buy-row">
-          <span class="product-price">R$ 24,90</span>
-          <button class="buy-btn">Comprar</button>
+          <button class="buy-btn">Comprar Agora</button>
         </div>
       </div>
     </div>
@@ -496,15 +547,19 @@
       <div class="product-image">
         <img src="" alt="PlayStation Plus Extra" />
         <span class="product-platform-badge">PlayStation</span>
-        <span class="product-tag-top"><span class="badge badge-blue">CATÁLOGO</span></span>
+        <span class="product-discount-badge">-20%</span>
       </div>
       <div class="product-body">
-        <span class="badge badge-gray" style="font-size:9px;">ASSINATURA</span>
+        <span class="product-category">Assinatura</span>
         <p class="product-name">PlayStation Plus Extra</p>
         <p class="product-sub">1 Mês · 400+ jogos PS4 e PS5</p>
+        <div class="product-price-block">
+          <p class="product-old-price">R$ 68,90</p>
+          <p class="product-price">R$ 54,90</p>
+          <p class="product-pix">💰 R$ 52,16 no Pix</p>
+        </div>
         <div class="product-buy-row">
-          <span class="product-price">R$ 54,90</span>
-          <button class="buy-btn">Comprar</button>
+          <button class="buy-btn">Comprar Agora</button>
         </div>
       </div>
     </div>
@@ -513,15 +568,19 @@
       <div class="product-image">
         <img src="" alt="EA Play" />
         <span class="product-platform-badge">EA / Xbox</span>
-        <span class="product-tag-top"><span class="badge badge-orange">EA PLAY</span></span>
+        <span class="product-discount-badge">-33%</span>
       </div>
       <div class="product-body">
-        <span class="badge badge-gray" style="font-size:9px;">ASSINATURA</span>
+        <span class="product-category">Assinatura</span>
         <p class="product-name">EA Play</p>
-        <p class="product-sub">1 Mês · FIFA, FIFA Ultimate, Battlefield</p>
+        <p class="product-sub">1 Mês · FIFA, Battlefield e mais</p>
+        <div class="product-price-block">
+          <p class="product-old-price">R$ 29,90</p>
+          <p class="product-price">R$ 19,90</p>
+          <p class="product-pix">💰 R$ 18,91 no Pix</p>
+        </div>
         <div class="product-buy-row">
-          <span class="product-price">R$ 19,90</span>
-          <button class="buy-btn">Comprar</button>
+          <button class="buy-btn">Comprar Agora</button>
         </div>
       </div>
     </div>
@@ -530,15 +589,19 @@
       <div class="product-image">
         <img src="" alt="Game Pass PC 3 Meses" />
         <span class="product-platform-badge">Xbox / PC</span>
-        <span class="product-tag-top"><span class="badge badge-green">3 MESES</span></span>
+        <span class="product-discount-badge">-15%</span>
       </div>
       <div class="product-body">
-        <span class="badge badge-gray" style="font-size:9px;">ASSINATURA</span>
-        <p class="product-name">Game Pass PC</p>
-        <p class="product-sub">3 Meses · Acesso ilimitado PC</p>
+        <span class="product-category">Assinatura</span>
+        <p class="product-name">Game Pass PC 3 Meses</p>
+        <p class="product-sub">3 Meses · Acesso ilimitado no PC</p>
+        <div class="product-price-block">
+          <p class="product-old-price">R$ 74,90</p>
+          <p class="product-price">R$ 64,90</p>
+          <p class="product-pix">💰 R$ 61,66 no Pix</p>
+        </div>
         <div class="product-buy-row">
-          <span class="product-price">R$ 64,90</span>
-          <button class="buy-btn">Comprar</button>
+          <button class="buy-btn">Comprar Agora</button>
         </div>
       </div>
     </div>
@@ -547,65 +610,69 @@
       <div class="product-image">
         <img src="" alt="Game Pass Compartilhado" />
         <span class="product-platform-badge">Xbox</span>
-        <span class="product-tag-top"><span class="badge badge-gray">COMPARTILHADO</span></span>
+        <span class="product-discount-badge">-40%</span>
       </div>
       <div class="product-body">
-        <span class="badge badge-gray" style="font-size:9px;">DIGITAL MEDIA</span>
+        <span class="product-category">Digital Media</span>
         <p class="product-name">Game Pass Ultimate Compartilhado</p>
         <p class="product-sub">1 Mês · Mesmo benefício, menor preço</p>
+        <div class="product-price-block">
+          <p class="product-old-price">R$ 24,90</p>
+          <p class="product-price">R$ 14,90</p>
+          <p class="product-pix">💰 R$ 14,16 no Pix</p>
+        </div>
         <div class="product-buy-row">
-          <span class="product-price">R$ 14,90</span>
-          <button class="buy-btn">Comprar</button>
+          <button class="buy-btn">Comprar Agora</button>
         </div>
       </div>
     </div>
+
   </div>
 </section>
 
 <!-- ── GIFT CARDS ── -->
-<section class="section" id="gift-cards">
+<section class="section-wrap" id="gift-cards">
   <div class="section-header">
     <div>
-      <p class="section-eyebrow"><i data-lucide="gift" style="width:13px;height:13px;"></i> GIFT CARDS</p>
-      <h2 class="section-title">Saldos para todas as plataformas</h2>
+      <h2 class="section-title">Gift Cards</h2>
       <p class="section-sub">Presente perfeito para qualquer gamer — entrega imediata por e-mail</p>
     </div>
-    <a href="gift-cards.html"><button class="btn-outline">Ver todos <i data-lucide="arrow-right" style="width:13px;height:13px;vertical-align:middle;"></i></button></a>
+    <a href="gift-cards.html"><button class="btn-outline">Ver todos →</button></a>
   </div>
 
   <div class="gift-grid">
     <a href="gift-cards.html" class="gift-card">
-      <img class="gift-icon" src="" alt="Xbox" style="background:#107c10;padding:8px;border-radius:10px;" />
+      <div class="gift-icon" style="background:#e8f5e9;">🟢</div>
       <span class="gift-name">Xbox</span>
       <span class="gift-from">A partir de</span>
       <span class="gift-price">R$ 25,00</span>
     </a>
     <a href="gift-cards.html" class="gift-card">
-      <img class="gift-icon" src="" alt="PlayStation" style="background:#003087;padding:8px;border-radius:10px;" />
+      <div class="gift-icon" style="background:#e8eaf6;">🔵</div>
       <span class="gift-name">PlayStation</span>
       <span class="gift-from">A partir de</span>
       <span class="gift-price">R$ 30,00</span>
     </a>
     <a href="gift-cards.html" class="gift-card">
-      <img class="gift-icon" src="" alt="Roblox" style="background:#cc0000;padding:8px;border-radius:10px;" />
+      <div class="gift-icon" style="background:#fce4ec;">🔴</div>
       <span class="gift-name">Roblox</span>
       <span class="gift-from">A partir de</span>
       <span class="gift-price">R$ 15,00</span>
     </a>
     <a href="gift-cards.html" class="gift-card">
-      <img class="gift-icon" src="" alt="Nintendo" style="background:#e60012;padding:8px;border-radius:10px;" />
+      <div class="gift-icon" style="background:#fce4ec;">❤️</div>
       <span class="gift-name">Nintendo</span>
       <span class="gift-from">A partir de</span>
       <span class="gift-price">R$ 60,00</span>
     </a>
     <a href="gift-cards.html" class="gift-card">
-      <img class="gift-icon" src="" alt="Google Play" style="background:#fff;padding:8px;border-radius:10px;" />
+      <div class="gift-icon" style="background:#e8f5e9;">▶️</div>
       <span class="gift-name">Google Play</span>
       <span class="gift-from">A partir de</span>
       <span class="gift-price">R$ 15,00</span>
     </a>
     <a href="gift-cards.html" class="gift-card">
-      <img class="gift-icon" src="" alt="Uber" style="background:#000;padding:8px;border-radius:10px;" />
+      <div class="gift-icon" style="background:#212121; border-radius:10px;">🚗</div>
       <span class="gift-name">Uber</span>
       <span class="gift-from">A partir de</span>
       <span class="gift-price">R$ 50,00</span>
@@ -634,68 +701,47 @@
 </div>
 
 <!-- ── DEPOIMENTOS ── -->
-<section class="section section-alt">
+<section class="section-wrap section-alt">
   <div class="section-header" style="justify-content:center;flex-direction:column;align-items:center;text-align:center;">
-    <p class="section-eyebrow"><i data-lucide="star" style="width:13px;height:13px;"></i> AVALIAÇÕES</p>
-    <h2 class="section-title">O que nossos clientes dizem</h2>
+    <h2 class="section-title" style="border-left:none;padding-left:0;text-align:center;">O que nossos clientes dizem</h2>
   </div>
   <div class="testimonials-grid">
     <div class="testimonial-card">
-      <div class="testimonial-stars">
-        <i data-lucide="star" style="width:15px;height:15px;fill:currentColor;"></i>
-        <i data-lucide="star" style="width:15px;height:15px;fill:currentColor;"></i>
-        <i data-lucide="star" style="width:15px;height:15px;fill:currentColor;"></i>
-        <i data-lucide="star" style="width:15px;height:15px;fill:currentColor;"></i>
-        <i data-lucide="star" style="width:15px;height:15px;fill:currentColor;"></i>
-      </div>
+      <div class="testimonial-stars">★★★★★</div>
       <p class="testimonial-text">"Comprei o Game Pass Ultimate e recebi o código em menos de 2 minutos. Atendimento incrível, comprarei sempre aqui!"</p>
       <div class="testimonial-author">
-        <img class="author-avatar" src="" alt="Lucas" />
+        <div class="author-avatar">👨</div>
         <div><p class="author-name">Lucas Ferreira</p><p class="author-role">Xbox Player · São Paulo</p></div>
       </div>
     </div>
     <div class="testimonial-card">
-      <div class="testimonial-stars">
-        <i data-lucide="star" style="width:15px;height:15px;fill:currentColor;"></i>
-        <i data-lucide="star" style="width:15px;height:15px;fill:currentColor;"></i>
-        <i data-lucide="star" style="width:15px;height:15px;fill:currentColor;"></i>
-        <i data-lucide="star" style="width:15px;height:15px;fill:currentColor;"></i>
-        <i data-lucide="star" style="width:15px;height:15px;fill:currentColor;"></i>
-      </div>
+      <div class="testimonial-stars">★★★★★</div>
       <p class="testimonial-text">"Melhor loja de gift cards! Preço justo, entrega instantânea e suporte 24h no WhatsApp. Super recomendo!"</p>
       <div class="testimonial-author">
-        <img class="author-avatar" src="" alt="Ana" />
+        <div class="author-avatar">👩</div>
         <div><p class="author-name">Ana Carolina</p><p class="author-role">PS Gamer · Fortaleza</p></div>
       </div>
     </div>
     <div class="testimonial-card">
-      <div class="testimonial-stars">
-        <i data-lucide="star" style="width:15px;height:15px;fill:currentColor;"></i>
-        <i data-lucide="star" style="width:15px;height:15px;fill:currentColor;"></i>
-        <i data-lucide="star" style="width:15px;height:15px;fill:currentColor;"></i>
-        <i data-lucide="star" style="width:15px;height:15px;fill:currentColor;"></i>
-        <i data-lucide="star" style="width:15px;height:15px;fill:currentColor;"></i>
-      </div>
+      <div class="testimonial-stars">★★★★★</div>
       <p class="testimonial-text">"Compro aqui há mais de 1 ano. Nunca tive problema. Site confiável com os melhores preços do mercado."</p>
       <div class="testimonial-author">
-        <img class="author-avatar" src="" alt="Rafael" />
+        <div class="author-avatar">🎮</div>
         <div><p class="author-name">Rafael Santos</p><p class="author-role">Streamer · YouTube & Twitch</p></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── PAYMENT ── -->
+<!-- ── PAYMENT BAR ── -->
 <div class="payment-bar">
-  <span class="payment-label">
-    <i data-lucide="credit-card" style="width:16px;height:16px;"></i> Formas de pagamento:
-  </span>
+  <span class="payment-label">💳 Formas de pagamento:</span>
   <div class="payment-icons">
-    <span class="payment-chip"><i data-lucide="credit-card" style="width:13px;height:13px;"></i> Cartão de Crédito</span>
-    <span class="payment-chip"><i data-lucide="zap" style="width:13px;height:13px;"></i> Pix (instantâneo)</span>
-    <span class="payment-chip"><i data-lucide="file-text" style="width:13px;height:13px;"></i> Boleto</span>
-    <span class="payment-chip"><i data-lucide="layers" style="width:13px;height:13px;"></i> Parcelamento 12x</span>
-    <span class="payment-chip"><i data-lucide="lock" style="width:13px;height:13px;"></i> 100% Seguro</span>
+    <span class="payment-chip">💳 Cartão de Crédito</span>
+    <span class="payment-chip">⚡ Pix (instantâneo)</span>
+    <span class="payment-chip">📄 Boleto</span>
+    <span class="payment-chip">🔢 Parcelamento 12x</span>
+    <span class="payment-chip">🔒 100% Seguro</span>
   </div>
 </div>
 
@@ -709,10 +755,10 @@
       </div>
       <p class="footer-brand-text">Sua loja de confiança para assinaturas digitais e gift cards. Entrega instantânea, preços justos e suporte dedicado.</p>
       <div class="footer-social">
-        <a href="#" class="social-btn"><i data-lucide="instagram" style="width:16px;height:16px;"></i></a>
-        <a href="#" class="social-btn"><i data-lucide="youtube" style="width:16px;height:16px;"></i></a>
-        <a href="#" class="social-btn"><i data-lucide="facebook" style="width:16px;height:16px;"></i></a>
-        <a href="#" class="social-btn"><i data-lucide="music" style="width:16px;height:16px;"></i></a>
+        <a href="#" class="social-btn"><i data-lucide="instagram" style="width:15px;height:15px;"></i></a>
+        <a href="#" class="social-btn"><i data-lucide="youtube" style="width:15px;height:15px;"></i></a>
+        <a href="#" class="social-btn"><i data-lucide="facebook" style="width:15px;height:15px;"></i></a>
+        <a href="#" class="social-btn"><i data-lucide="music" style="width:15px;height:15px;"></i></a>
       </div>
     </div>
     <div>
@@ -754,39 +800,39 @@
 
 <!-- WhatsApp FAB -->
 <a href="#" class="whatsapp-fab" title="Falar no WhatsApp">
-  <i data-lucide="message-circle" style="width:26px;height:26px;"></i>
+  <i data-lucide="message-circle" style="width:24px;height:24px;"></i>
 </a>
 
-<script src=""></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script>
   lucide.createIcons();
+
+  // Filter pills
   document.querySelectorAll('.pill').forEach(pill => {
     pill.addEventListener('click', () => {
       document.querySelectorAll('.pill').forEach(p => p.className = 'pill pill-inactive');
       pill.className = 'pill pill-active';
     });
   });
-</script>
 
-<script>
-(function() {
-  var btn = document.getElementById('navHamburger');
-  var menu = document.getElementById('navMobile');
-  if (!btn || !menu) return;
-  btn.addEventListener('click', function() {
-    btn.classList.toggle('open');
-    menu.classList.toggle('open');
-    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
-  });
-  // Close on link click
-  menu.querySelectorAll('a').forEach(function(a) {
-    a.addEventListener('click', function() {
-      btn.classList.remove('open');
-      menu.classList.remove('open');
-      document.body.style.overflow = '';
+  // Hamburger menu
+  (function() {
+    var btn = document.getElementById('navHamburger');
+    var menu = document.getElementById('navMobile');
+    if (!btn || !menu) return;
+    btn.addEventListener('click', function() {
+      btn.classList.toggle('open');
+      menu.classList.toggle('open');
+      document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
     });
-  });
-})();
+    menu.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        btn.classList.remove('open');
+        menu.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+  })();
 </script>
 </body>
 </html>
