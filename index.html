@@ -17,6 +17,8 @@
       padding: 48px 80px 56px;
       background: #fff;
       border-bottom: 1px solid var(--border);
+      overflow: hidden;
+      width: 100%;
     }
     .hero-main {
       background: linear-gradient(135deg, #0D1B2A 0%, #1B3A4B 100%);
@@ -207,7 +209,8 @@
       .hero-sub { font-size: 14px; }
       .hero-price-block strong { font-size: 28px; }
       .hero-cta { padding: 12px 22px; font-size: 14px; }
-      .hero-side { flex-direction: column; }
+      .hero-side { flex-direction: row; flex-wrap: wrap; align-self: auto; }
+      .side-card { flex: 0 0 calc(50% - 6px); height: 80px; }
       .features-strip { grid-template-columns: 1fr 1fr; padding: 0 24px; }
       .feature-item { padding: 16px 12px; gap: 10px; border-right: none; border-bottom: 1px solid var(--border); }
       .feature-item:nth-child(odd) { border-right: 1px solid var(--border); }
@@ -222,6 +225,8 @@
     }
     @media (max-width: 600px) {
       .hero { padding: 16px 16px 24px; }
+      .hero-side { flex-direction: column; }
+      .side-card { flex: 0 0 auto; height: 72px; width: 100%; }
       .hero-main { padding: 24px; min-height: 220px; }
       .hero-title { font-size: 26px; }
       .hero-cta-row { flex-direction: column; align-items: flex-start; gap: 10px; }
