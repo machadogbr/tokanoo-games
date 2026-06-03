@@ -68,7 +68,7 @@
     .hero-trust-item svg { color: rgba(255,255,255,.4); }
 
     /* ── HERO SIDE ── */
-    .hero-side { display: flex; flex-direction: column; gap: 14px; }
+    .hero-side { display: flex; flex-direction: column; gap: 12px; justify-content: flex-start; align-self: start; }
     .side-card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -79,10 +79,10 @@
       transition: all .22s;
       cursor: pointer;
       box-shadow: var(--shadow-sm);
-      flex: 1;
+      height: 80px;
     }
     .side-card:hover { border-color: var(--green); box-shadow: var(--shadow-md); transform: translateX(3px); }
-    .side-card-img { width: 90px; height: 90px; object-fit: cover; flex-shrink: 0; }
+    .side-card-img { width: 80px; height: 80px; object-fit: cover; flex-shrink: 0; }
     .side-card-body { padding: 14px 16px; display: flex; flex-direction: column; justify-content: center; gap: 4px; flex: 1; }
     .side-card-tag { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; }
     .side-card-name { font-size: 14px; font-weight: 700; color: var(--ink); }
@@ -188,7 +188,7 @@
     @media (max-width:1200px) {
       .hero { grid-template-columns: 1fr; padding: 40px; }
       .hero-side { flex-direction: row; flex-wrap: wrap; }
-      .side-card { flex: 1 1 calc(50% - 7px); }
+      .side-card { flex: 1 1 calc(50% - 7px); height: 80px; }
       .features-strip { padding: 0 40px; grid-template-columns: repeat(2,1fr); }
       .promo-banner { margin: 0 40px; }
       .gift-grid { grid-template-columns: repeat(3,1fr); }
